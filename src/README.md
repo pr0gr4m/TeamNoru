@@ -1,2 +1,3 @@
 # TeamNoru
-Repository for team project
+
+Directory for source code
