@@ -68,11 +68,7 @@ void mapDraw(int mapNum)
 	int i;
 	int j;
 
-<<<<<<< HEAD
-	system("mode con:cols=85 lines=40");
-=======
 	setConsoleSize();
->>>>>>> 17deda5118fcb09193b138e7a4a433c3e5a9407a
 
 	for (i = 0; i < y_size; i++)
 	{
@@ -121,8 +117,4 @@ void testMap()
 		cin.get(key);
 		cin.ignore(256,'\n');
 	}
-<<<<<<< HEAD
-
-=======
->>>>>>> 17deda5118fcb09193b138e7a4a433c3e5a9407a
 }
