@@ -1,6 +1,7 @@
 #include <iostream>
 #include <Windows.h>
 #include <conio.h>
+#include "lib.h"
 
 int getKey(void)
 {
@@ -16,6 +17,28 @@ void gotoxy(int x, int y)
 {
 	COORD pos = { x, y };
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
+}
+
+void setCursorType(CURSOR_TYPE type)
+{
+	CONSOLE_CURSOR_INFO curInfo;
+	GetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &curInfo);
+	switch (type)
+	{
+	case NOCURSOR:
+		curInfo.bVisible = FALSE;
+		curInfo.dwSize = 1;
+		break;
+	case SOLIDCURSOR:
+		curInfo.bVisible = TRUE;
+		curInfo.dwSize = 100;
+		break;
+	case NORMALCURSOR:
+		curInfo.bVisible = TRUE;
+		curInfo.dwSize = 20;
+		break;
+	}
+	SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &curInfo);
 }
 
 void setConsoleSize(void)
