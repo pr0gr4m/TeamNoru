@@ -6,7 +6,7 @@
 Monster::Monster(const char *n, int lev,
 	int dmg, int dfs)	: level(lev)
 {
-	strcpy(name, n);
+	std::strcpy(name, n);
 	int base = level / 10 + 1;
 	HP = base * 30 + level * 10;
 	AP = base * 10 + level * 5;
