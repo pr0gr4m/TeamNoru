@@ -8,9 +8,9 @@
 // 몬스터 타입
 enum { NORM, AGGR, DEFN };
 
-const int MON_TYPE = 7;
-const char *mon_name[MON_TYPE] = { "블랙하운드", "거대사마귀", "방사두더지", "데스클로", "뮤턴트플라워", "구울", "검은구체" };
-const int BOSS_LEVEL = 50;
+static const int MON_TYPE = 7;
+static const char *mon_name[MON_TYPE] = { "블랙하운드", "거대사마귀", "방사두더지", "데스클로", "뮤턴트플라워", "구울", "검은구체" };
+static const int BOSS_LEVEL = 50;
 
 /*
  * 클래스 : Monster

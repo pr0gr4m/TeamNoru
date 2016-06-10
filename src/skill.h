@@ -3,8 +3,9 @@
 #define _SKILL_H
 
 enum { ATTK, HEAL };
-const int SK_TYPE = 4;
-const char *sk_name[SK_TYPE] = { "강타", "몰아치기", "회복", "도박" };
+
+static const int SK_TYPE = 4;
+static const char *sk_name[SK_TYPE] = { "강타", "몰아치기", "회복", "도박" };
 
 /*
  * 클래스 : Skill
