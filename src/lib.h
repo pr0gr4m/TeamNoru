@@ -12,6 +12,8 @@ enum {
 	LIGHTMAGENTA = 13, LIGHTPURPLE = 13, YELLOW = 14, WHITE = 15
 };
 
+enum { UP = 72, DOWN = 80, LEFT = 75, RIGHT = 77 };
+
 // 콘솔 화면에서 커서 x, y 좌표로 이동
 void gotoxy(int x, int y);
 
