@@ -7,10 +7,14 @@
 
 enum {
 	BLACK = 0, BLUE, GREEN, CYAN, RED, MAGENTA = 5, PURPLE = 5,
-	BROWN = 6, LIGHTGRAY, GRAY, LIGHTBLUE, 
+	BROWN = 6, LIGHTGRAY, GRAY, LIGHTBLUE,
 	LIGHTGREEN, LIGHTCYAN, LIGHTRED,
 	LIGHTMAGENTA = 13, LIGHTPURPLE = 13, YELLOW = 14, WHITE = 15
 };
+
+enum { UP = 72, DOWN = 80, LEFT = 75, RIGHT = 77 };
+
+enum CURSOR_TYPE { NOCURSOR, SOLIDCURSOR, NORMALCURSOR };
 
 // 콘솔 화면에서 커서 x, y 좌표로 이동
 void gotoxy(int x, int y);
@@ -20,6 +24,12 @@ void setConsoleSize(void);
 
 // 화면 지움
 void clrscr(void);
+
+// 버퍼 없이 키 입력 받음
+int getKey(void);
+
+// 커서 타입 지정 (디폴트시 안보임)
+void setCursorType(CURSOR_TYPE type = NOCURSOR);
 
 // 첫 번째 인자 글자 색, 두 번째 인자 배경 색 지정
 void setColor(int colFrt = LIGHTGRAY, int colBck = BLACK);

@@ -1,8 +1,9 @@
 #include <iostream>
 #include <Windows.h>
 #include <conio.h>
+#include "lib.h"
 
-int getKeyNoBuff(void)
+int getKey(void)
 {
 	int ch = _getch();
 	if (ch == 224 || ch == 0)
@@ -18,9 +19,31 @@ void gotoxy(int x, int y)
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
 }
 
+void setCursorType(CURSOR_TYPE type)
+{
+	CONSOLE_CURSOR_INFO curInfo;
+	GetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &curInfo);
+	switch (type)
+	{
+	case NOCURSOR:
+		curInfo.bVisible = FALSE;
+		curInfo.dwSize = 1;
+		break;
+	case SOLIDCURSOR:
+		curInfo.bVisible = TRUE;
+		curInfo.dwSize = 100;
+		break;
+	case NORMALCURSOR:
+		curInfo.bVisible = TRUE;
+		curInfo.dwSize = 20;
+		break;
+	}
+	SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &curInfo);
+}
+
 void setConsoleSize(void)
 {
-	system("mode con: cols=200 lines=60");
+	system("mode con: cols=85 lines=40");
 	system("cls");
 }
 
