@@ -2,7 +2,7 @@
 #include <Windows.h>
 #include <conio.h>
 
-int getKeyNoBuff(void)
+int getKey(void)
 {
 	int ch = _getch();
 	if (ch == 224 || ch == 0)
@@ -20,7 +20,7 @@ void gotoxy(int x, int y)
 
 void setConsoleSize(void)
 {
-	system("mode con: cols=200 lines=60");
+	system("mode con: cols=85 lines=40");
 	system("cls");
 }
 

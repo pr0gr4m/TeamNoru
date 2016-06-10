@@ -21,6 +21,9 @@ void setConsoleSize(void);
 // 화면 지움
 void clrscr(void);
 
+// 버퍼 없이 키 입력 받음
+int getKey(void);
+
 // 첫 번째 인자 글자 색, 두 번째 인자 배경 색 지정
 void setColor(int colFrt = LIGHTGRAY, int colBck = BLACK);
 
