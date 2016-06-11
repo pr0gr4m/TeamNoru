@@ -1,36 +1,29 @@
 #include "player.h"
-#include"lib.h"
 #include <ctime>
 #include <cstdlib>
 #include <iostream>
-#include<conio.h>
-#include<iomanip>
+#include <cstring>
+#include "lib.h"
+#include <iomanip>
 using std::cout;
 using std::cin;
 using std::setfill;
 using std::setw;
 using std::endl;
-player::player()
+Player::Player()
 {
-	while (true)
-	{
-		cout << "渡褐曖 檜葷擎 鼠歷殮棲梱? ";
-		cin >> buf;
-		if (strlen(buf) >= 20)
-			cout << "檜葷檜 傘鼠 梢棲棻 艙橫1~19濠, и旋婁 か熱僥濠朝 1~9濠 檜頂煎 檜葷雖橫輿撮蹂.";
-		else
-			break;
-	}
+	// 煎萄辨 蛤ィお 儅撩濠
+}
+
+Player::Player(const char *n)
+{
+	strcpy(name, n);
 	initializig();
 	Sethp();
 	Setap();
 }
 
-
-player::~player()
-{
-}
-void player::initializig(){
+void Player::initializig(){
 	str = 3;
 	luck = 1;
 	dex = 3;
@@ -39,42 +32,47 @@ void player::initializig(){
 	exp = 30;
 	sp = 0;
 }
-void player::Setstr(int nstr){
+
+void Player::Setstr(int nstr){
 	str += nstr;
 }
-void player::Setluck(int nluck){
+void Player::Setluck(int nluck){
 	luck += nluck;
 }
-void player::Setdex(int ndex){
+void Player::Setdex(int ndex){
 	dex += ndex;
 }
-void player::Sethealth(int nhealth){
+void Player::Sethealth(int nhealth){
 	health += nhealth;
 }
-void player::Sethp(){
+void Player::Sethp(){
 	float hp = health * 4 + str*1.5;
 	HealHP((int)hp-HP);
 	HP = (int)hp;
 }
-void player::Setap(){
+
+void Player::Setap(){
 	float ap = str*1.5 + dex * 2;
 	HealAP((int)ap - AP);
 	AP = (int)ap;
 }
-int player::pattack(){
-	srand(time(NULL));
+
+int Player::pattack(){
 	float pattack = str*2.5 - (rand() % str + 1);
 	return (int)pattack;
 }
-int player::pdefense(){
+
+int Player::pdefense(){
 	float pdefense = str*1.5;
 	return (int)pdefense;
 }
-bool player::critical(){
+
+bool Player::critical(){
 	if ((dex*1.5 + luck * 2) > (rand() % 100 + 1))
 		return true;
 }
-int player::attackDamage()
+
+int Player::attackDamage()
 {
 	int dmg = pattack();//+itemattack;
 	if (critical())
@@ -82,7 +80,8 @@ int player::attackDamage()
 	else
 		return dmg;
 }
-int player::beatenDamage(int dmg){
+
+int Player::beatenDamage(int dmg){
 	int defensivePower = pdefense();//+itemdefense;
 	int calDmg = dmg - defensivePower;
 	if (nHp <= calDmg)
@@ -91,84 +90,96 @@ int player::beatenDamage(int dmg){
 		nHp -= calDmg;
 	return nHp;
 }
-int player::HealHP(int hp){
+
+int Player::HealHP(int hp){
 	if (hp > HP - nHp)
 		nHp = HP;
 	else
 		nHp += hp;
 	return nHp;
 }
-int player::HealAP(int ap){
+
+int Player::HealAP(int ap){
 	if (ap > AP - nAP)
 		nAP = AP;
 	else
 		nAP += ap;
 	return nAP;
 }
-void player::Getexp(int pexp){
+
+void Player::Getexp(int pexp){
 	nexp += pexp;
 	if (nexp >= exp)
 		Lvup();
 }
 
-void player::statuschange(){//gotoxy厥堅 謝ル褻薑睡饕萄董棲棻.
+void Player::statuschange(){//gotoxy厥堅 謝ル褻薑睡饕萄董棲棻.
 	int nstr = 0, ndex = 0, nhealth = 0, nluck = 0, xp = 0, yp = 0, off = 0;
+	int x = 6, y = 3;
 	while (off == 0)
 	{
-		gotoxy(x, y);	cout << "忙式式式式式式式式式式式式式式式式式式式式忖";
-		gotoxy(x, y + 1);	cout << "弛STATUS CHANGE弛";
-		gotoxy(x, y + 2);	cout << "弛Strength : " << setw(3) << setfill(' ') << str << " + - " << nstr << "弛";
-		gotoxy(x, y + 3);	cout << "弛Dex      : " << setw(3) << setfill(' ') << dex << " + - " << ndex << "弛";
-		gotoxy(x, y + 4);	cout << "弛Health   : " << setw(3) << setfill(' ') << health << " + - " << nhealth << "弛";
-		gotoxy(x, y + 5);	cout << "弛Luck     : " << setw(3) << setfill(' ') << luck << " + - " << nluck << "弛";
-		gotoxy(x, y + 6); cout << "弛  陴擎 蝶纔檜攪蝶ん檣お: " << setw(2) << setfill(' ') << sp << "弛";
-		gotoxy(x, y + 7); cout << "戌式式式式式式式式式式式式式式式式式式式式戎";
+		gotoxy(x, y);		cout << "忙式式式式式式式式式式式式式忖";
+		gotoxy(x, y + 1);	cout << "弛STATUS CHANGE	          弛";
+		gotoxy(x, y + 2);	cout << "弛Strength : " << setw(3) << setfill(' ') << str << "   + -   " << nstr << "  弛";
+		gotoxy(x, y + 3);	cout << "弛Dex      : " << setw(3) << setfill(' ') << dex << "   + -   " << ndex << "  弛";
+		gotoxy(x, y + 4);	cout << "弛Health   : " << setw(3) << setfill(' ') << health << "   + -   " << nhealth << "  弛";
+		gotoxy(x, y + 5);	cout << "弛Luck     : " << setw(3) << setfill(' ') << luck << "   + -   " << nluck << "  弛";
+		gotoxy(x, y + 6);	cout << "弛陴擎 蝶纔檜攪蝶ん檣お: " << setw(2) << setfill(' ') << sp << " 弛";
+		gotoxy(x, y + 7);	cout << "戌式式式式式式式式式式式式式戎";
 
-		if (xp == yp == 0){
-			gotoxy(x + 1, y + 2);
+		if (xp ==0 && yp == 0){
+			gotoxy(x + 2, y + 2);
 			setColor(BLACK, LIGHTGRAY);
-			cout << "Strength : " << setw(3) << setfill(' ') << str << " + - " << nstr;
+			cout << "Strength : " << setw(3) << setfill(' ') << str << "   + -   " << nstr;
+			setColor();
 		}
-		else if (xp == 0 || yp == 1){
-			gotoxy(x + 1, y + 3);
+		else if (xp == 0 && yp == 1){
+			gotoxy(x + 2, y + 3);
 			setColor(BLACK, LIGHTGRAY);
-			cout << "Dex      : " << setw(3) << setfill(' ') << dex << " + - " << ndex;
+			cout << "Dex      : " << setw(3) << setfill(' ') << dex << "   + -   " << ndex;
+			setColor();
 		}
-		else if (xp == 0 || yp == 2){
-			gotoxy(x + 1, y + 4);
+		else if (xp == 0 && yp == 2){
+			gotoxy(x + 2, y + 4);
 			setColor(BLACK, LIGHTGRAY);
-			cout << "Health   : " << setw(3) << setfill(' ') << health << " + - " << nhealth;
+			cout << "Health   : " << setw(3) << setfill(' ') << health << "   + -   " << nhealth;
+			setColor();
 		}
-		else if (xp == 0 || yp == 3){
-			gotoxy(x + 1, y + 5);
+		else if (xp == 0 && yp == 3){
+			gotoxy(x + 2, y + 5);
 			setColor(BLACK, LIGHTGRAY);
-			cout << "Luck     : " << setw(3) << setfill(' ') << luck << " + - " << nluck;
+			cout << "Luck     : " << setw(3) << setfill(' ') << luck << "   + -   " << nluck;
+			setColor();
 		}
-		else if (xp == 1 || yp == 0){
-			gotoxy(x + 15, y + 2);
+		else if (xp == 1 && yp == 0){
+			gotoxy(x + 18, y + 2);
 			setColor(BLACK, LIGHTGRAY);
-			cout << " + - " << nstr;
+			cout << " + -   " << nstr;
+			setColor();
 		}
-		else if (xp == 1 || yp == 1){
-			gotoxy(x + 15, y + 3);
+		else if (xp == 1 && yp == 1){
+			gotoxy(x + 18, y + 3);
 			setColor(BLACK, LIGHTGRAY);
-			cout << " + - " << ndex;
+			cout << " + -   " << ndex;
+			setColor();
 		}
-		else if (xp == 1 || yp == 2){
-			gotoxy(x + 15, y + 4);
+		else if (xp == 1 && yp == 2){
+			gotoxy(x + 18, y + 4);
 			setColor(BLACK, LIGHTGRAY);
-			cout << " + - " << nhealth;
+			cout << " + -   " << nhealth;
+			setColor();
 		}
-		else if (xp == 1 || yp == 3){
-			gotoxy(x + 15, y + 5);
+		else if (xp == 1 && yp == 3){
+			gotoxy(x + 18, y + 5);
 			setColor(BLACK, LIGHTGRAY);
-			cout << " + - " << nluck;
+			cout << " + -   " << nluck;
+			setColor();
 		}
 		ClearReadBuff();
 		int ch = getKey();
 		switch (ch)
 		{
-		case UP: w : W :
+		case UP: case 'w': case 'W':
 			if (xp == 0)
 			{
 				yp--;
@@ -181,9 +192,9 @@ void player::statuschange(){//gotoxy厥堅 謝ル褻薑睡饕萄董棲棻.
 				{
 					if (sp == 0)
 					{
-						gotoxy(); cout << "忙式式式式式式式式式式式式式式式式忖";
-						gotoxy(); cout << "弛陴擎 蝶纔檜攪蝶ん檣お陛 橈蝗棲棻弛";
-						gotoxy(); cout << "戌式式式式式式式式式式式式式式式式戎";
+						gotoxy(6, 15); cout << "忙式式式式式式式式式式式式式式式式忖";
+						gotoxy(6, 16); cout << "弛陴擎 蝶纔檜攪蝶ん檣お陛 橈蝗棲棻弛";
+						gotoxy(6, 17); cout << "戌式式式式式式式式式式式式式式式式戎";
 					}
 					else
 					{
@@ -195,9 +206,9 @@ void player::statuschange(){//gotoxy厥堅 謝ル褻薑睡饕萄董棲棻.
 				{
 					if (sp == 0)
 					{
-						gotoxy(); cout << "忙式式式式式式式式式式式式式式式式忖";
-						gotoxy(); cout << "弛陴擎 蝶纔檜攪蝶ん檣お陛 橈蝗棲棻弛";
-						gotoxy(); cout << "戌式式式式式式式式式式式式式式式式戎";
+						gotoxy(6, 15); cout << "忙式式式式式式式式式式式式式式式式忖";
+						gotoxy(6, 16); cout << "弛陴擎 蝶纔檜攪蝶ん檣お陛 橈蝗棲棻弛";
+						gotoxy(6, 17); cout << "戌式式式式式式式式式式式式式式式式戎";
 					}
 					else
 					{
@@ -209,9 +220,9 @@ void player::statuschange(){//gotoxy厥堅 謝ル褻薑睡饕萄董棲棻.
 				{
 					if (sp == 0)
 					{
-						gotoxy(); cout << "忙式式式式式式式式式式式式式式式式忖";
-						gotoxy(); cout << "弛陴擎 蝶纔檜攪蝶ん檣お陛 橈蝗棲棻弛";
-						gotoxy(); cout << "戌式式式式式式式式式式式式式式式式戎";
+						gotoxy(6, 15); cout << "忙式式式式式式式式式式式式式式式式忖";
+						gotoxy(6, 16); cout << "弛陴擎 蝶纔檜攪蝶ん檣お陛 橈蝗棲棻弛";
+						gotoxy(6, 17); cout << "戌式式式式式式式式式式式式式式式式戎";
 					}
 					else
 					{
@@ -223,23 +234,24 @@ void player::statuschange(){//gotoxy厥堅 謝ル褻薑睡饕萄董棲棻.
 				{
 					if (sp == 0)
 					{
-						gotoxy(); cout << "忙式式式式式式式式式式式式式式式式忖";
-						gotoxy(); cout << "弛陴擎 蝶纔檜攪蝶ん檣お陛 橈蝗棲棻弛";
-						gotoxy(); cout << "戌式式式式式式式式式式式式式式式式戎";
+						gotoxy(6, 15); cout << "忙式式式式式式式式式式式式式式式式忖";
+						gotoxy(6, 16); cout << "弛陴擎 蝶纔檜攪蝶ん檣お陛 橈蝗棲棻弛";
+						gotoxy(6, 17); cout << "戌式式式式式式式式式式式式式式式式戎";
 					}
 					else
 					{
 						nluck++;
 						sp--;
 					}
-				}
-				break;
-		case DOWN: s : S :
+				}	
+			}
+			break;
+		case DOWN: case 's': case 'S':
 			if (xp == 0)
 			{
 				yp++;
-				if (yp > 5)
-					yp = 5;
+				if (yp > 3)
+					yp = 3;
 			}
 			else
 			{
@@ -276,67 +288,46 @@ void player::statuschange(){//gotoxy厥堅 謝ル褻薑睡饕萄董棲棻.
 					}
 				}
 				break;
-		case LEFT: a : A :
+			}
+		case LEFT: case 'a' : case 'A':
 			xp--;
 			if (xp < 0)
 				xp = 0;
 			break;
-		case RIGHT: d : D :
+		case RIGHT: case 'd': case 'D':
 			xp++;
 			if (xp > 1)
-				xp == 1;
+				xp = 1;		// 罹晦 謁 == 艘擠?
 			break;
-		case 10:
+		case 10: case 13:
 			if (sp != 0)
 			{
-				gotoxy(); cout << "忙式式式式式式式式式式式式式式式式忖";
-				gotoxy(); cout << "弛陴擎 蝶纔檜攪蝶ん檣お陛 氈蝗棲棻弛";
-				gotoxy(); cout << "弛薑蜓煎 謙猿ж衛啊蝗棲梱?  (Y/N) 弛";
-				gotoxy(); cout << "戌式式式式式式式式式式式式式式式式戎";
+				gotoxy(6, 15); cout << "忙式式式式式式式式式式式式式式式式忖";
+				gotoxy(6, 16); cout << "弛陴擎 蝶纔檜攪蝶ん檣お陛 氈蝗棲棻弛";
+				gotoxy(6, 17); cout << "弛薑蜓煎 謙猿ж衛啊蝗棲梱?  (Y/N) 弛";
+				gotoxy(6, 18); cout << "戌式式式式式式式式式式式式式式式式戎";
 				ClearReadBuff();
 				while (true)
 				{
-					int yn = getch();
-					if (yn == 89 || yn == 121)
+					int yn = getKey();
+					if (yn == 'y' || yn == 'Y')
 					{
 						off++;
 						break;
 					}
-					else if (yn == 78 || yn == 110)
+					else if (yn == 'n' || yn == 'N')
 					{
-						gotoxy(); cout << "忙式式式式式式式式式忖";
-						gotoxy(); cout << "弛謙猿蒂 鏃模м棲棻 弛";
-						gotoxy(); cout << "戌式式式式式式式式式戎";
-						break;
-					}
-				}
-			}
-			else
-				off++;
-			break;
-		case 13:
-			if (sp != 0)
-			{
-				gotoxy(); cout << "忙式式式式式式式式式式式式式式式式忖";
-				gotoxy(); cout << "弛陴擎 蝶纔檜攪蝶ん檣お陛 氈蝗棲棻弛";
-				gotoxy(); cout << "弛棻擠 溯漣機梱雖 蝶纔檜攪蝶ん檣お弛";
-				gotoxy(); cout << "弛碟寡朝 碳陛棟м棲棻             弛";
-				gotoxy(); cout << "弛薑蜓煎 謙猿ж衛啊蝗棲梱?  (Y/N) 弛";
-				gotoxy(); cout << "戌式式式式式式式式式式式式式式式式戎";
-				ClearReadBuff();
-				while (true)
-				{
-					int yn = getch();
-					if (yn == 89 || yn == 121)
-					{
-						off++;
-						break;
-					}
-					else if (yn == 78 || yn == 110)
-					{
-						gotoxy(); cout << "忙式式式式式式式式式忖";
-						gotoxy(); cout << "弛謙猿蒂 鏃模м棲棻 弛";
-						gotoxy(); cout << "戌式式式式式式式式式戎";
+						gotoxy(6, 15); cout << "                                    ";
+						gotoxy(6, 16); cout << "                                    ";
+						gotoxy(6, 17); cout << "                                    ";
+						gotoxy(6, 18); cout << "                                    ";
+						gotoxy(6, 15); cout << "忙式式式式式式式式式忖";
+						gotoxy(6, 16); cout << "弛謙猿蒂 鏃模м棲棻 弛";
+						gotoxy(6, 17); cout << "戌式式式式式式式式式戎";
+						_sleep(500);
+						gotoxy(6, 15); cout << "                                    ";
+						gotoxy(6, 16); cout << "                                    ";
+						gotoxy(6, 17); cout << "                                    ";
 						break;
 					}
 				}
@@ -345,9 +336,8 @@ void player::statuschange(){//gotoxy厥堅 謝ル褻薑睡饕萄董棲棻.
 				off++;
 			break;
 		default:
+			// 斜 諼
 			break;
-			}
-			}
 		}
 	}
 	Setstr(nstr);
@@ -357,15 +347,16 @@ void player::statuschange(){//gotoxy厥堅 謝ル褻薑睡饕萄董棲棻.
 	Setap();
 	Sethp();
 }
-void player::Lvup(){//謝ル褻薑в蹂
-	gotoxy(); cout << "忙式式式式式式式式式忖";
-	gotoxy(); cout << "弛     Level Up! ∪ 弛";
-	gotoxy(); cout << "戌式式式式式式式式式戎";
+
+void Player::Lvup(){//謝ル褻薑в蹂
+	gotoxy(10, 30); cout << "忙式式式式式式式式式式忖";
+	gotoxy(10, 31); cout << "弛     Level Up! ∪   弛";
+	gotoxy(10, 32); cout << "戌式式式式式式式式式式戎";
 	ClearReadBuff();
-	getch();//嬴鼠剪釭 厥戲賊 腎啪 п場擎剪縑蹂 夥紱敷紫 腌棲棻.
+	getKey();//嬴鼠剪釭 厥戲賊 腎啪 п場擎剪縑蹂 夥紱敷紫 腌棲棻.
 	Lv++;
 	nexp -= exp;
 	exp *= 2;
 	sp += 5;
-	statuschange();
+	// 蝶囌擎 詭景縑憮 鎰擠
 }
