@@ -10,7 +10,7 @@ enum { NORM, AGGR, DEFN };
 
 static const int MON_TYPE = 7;
 static const char *mon_name[MON_TYPE] = { "블랙하운드", "거대사마귀", "방사두더지", "데스클로", "뮤턴트플라워", "구울", "검은구체" };
-static const int BOSS_LEVEL = 50;
+static const int BOSS_LEVEL = 30;
 
 /*
  * 클래스 : Monster
@@ -40,11 +40,18 @@ public:
 	int Exp() const;
 	// 아스키 아트 출력
 	bool printASCII() const;
+	// 현재 HP 반환
+	int getHP() const { return HP; }
+	// 현재 AP 반환
+	int getAP() const { return AP; }
+	// 최대 HP 반환
+	int getMAXHP() const { return MAXHP; }
 	// 스킬 리스트
 	int sk_list[SKILL_NUM];
+	// 이름
+	char name[NAME_LEN];
 protected:
 	int defensivePower() { return DFS; }
-	char name[NAME_LEN];
 private:
 	int level;
 	int HP, AP, DMG, DFS;
@@ -70,7 +77,7 @@ public:
  * 클래스 : HighMonster
  * 생성자 : 레벨을 반드시 입력받아서 기초 클래스 초기화
  * 오버라이딩 : 공격함수, 크리티컬 함수
- * 레벨제한 : 11 ~ 30
+ * 레벨제한 : 11 ~ 20
  * 이름 : 몬스터 타입에 따라 정해짐 (데스클로, 뮤턴트플라워, 구울)
  */
 class HighMonster : public Monster
@@ -85,7 +92,7 @@ public:
  * 클래스 : BossMonster
  * 생성자 : 디폴트 생성
  * 오버라이딩 : 공격함수, 크리티컬 함수
- * 보스 레벨 : 50
+ * 보스 레벨 : 30
  * 이름 : 검은 구체
  */
 class BossMonster : public Monster

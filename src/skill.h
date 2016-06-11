@@ -2,10 +2,11 @@
 #ifndef _SKILL_H
 #define _SKILL_H
 
-enum { ATTK, HEAL };
+#include "lib.h"
 
 static const int SK_TYPE = 4;
 static const char *sk_name[SK_TYPE] = { "강타", "몰아치기", "회복", "도박" };
+static const int SKILL_NUM = 10;
 
 /*
  * 클래스 : Skill

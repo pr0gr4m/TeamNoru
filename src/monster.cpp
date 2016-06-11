@@ -63,11 +63,11 @@ void Monster::printStatus() const
 // 경험치 반환
 int Monster::Exp() const
 {
-	int exp = level * 10;
+	int exp = level * 15;
 	return exp * (RandDouble(0.4) + 0.8);
 }
 
-// 전달받은 배열에 보유중인 스킬 리스트 복사
+// 아스키 아트 출력
 bool Monster::printASCII() const
 {
 	using namespace std;
@@ -79,7 +79,7 @@ bool Monster::printASCII() const
 		ios_base::in | ios_base::binary);
 	if (!infile.is_open())
 	{
-		cerr << "텍스트 파일이 존재하지 않습니다.";
+		cerr << f_name << " 파일이 존재하지 않습니다.";
 		return false;
 	}
 	
