@@ -324,7 +324,7 @@ void Player::statuschange(){//gotoxy넣고 좌표조정부탁드립니다.
 						gotoxy(6, 15); cout << "┌─────────┐";
 						gotoxy(6, 16); cout << "│종료를 취소합니다 │";
 						gotoxy(6, 17); cout << "└─────────┘";
-						_sleep(500);
+						_sleep(200);
 						gotoxy(6, 15); cout << "                                    ";
 						gotoxy(6, 16); cout << "                                    ";
 						gotoxy(6, 17); cout << "                                    ";

@@ -16,7 +16,7 @@ private:
 	int AP;//현재 최대ap
 	int item[7];
 	int Lv;
-	int exp;
+	int exp;//필요exp
 	int sp;//스테이터스 포인트
 	enum{ NAME_LEN = 20, BUF_SIZE = 256 };
 	void initializig();
