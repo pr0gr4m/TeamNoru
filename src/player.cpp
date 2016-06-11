@@ -9,8 +9,11 @@ using std::cout;
 using std::cin;
 using std::setfill;
 using std::setw;
+using std::endl;
 player::player()
 {
+	Sethp();
+	Setap();
 }
 
 
@@ -35,11 +38,12 @@ void player::Setitem(int *nitem){//변경사항만 처리
 }
 void player::Sethp(){
 	float hp = health * 4 + str*1.5;
-	nHp += ((int)hp-HP);
+	HealHP((int)hp-HP);
 	HP = (int)hp;
 }
 void player::Setap(){
 	float ap = str*1.5 + dex * 2;
+	HealAP((int)ap - AP);
 	AP = (int)ap;
 }
 int player::pattack(){
@@ -54,6 +58,47 @@ int player::pdefense(){
 bool player::critical(){
 	if ((dex*1.5 + luck * 2) > (rand() % 100 + 1))
 		return true;
+}
+int player::attackDamage()
+{
+	int dmg = pattack();//+itemattack;
+	if (critical())
+		return dmg * 2;
+	else
+		return dmg;
+}
+int player::beatenDamage(int dmg){
+	int defensivePower = pdefense();//+itemdefense;
+	int calDmg = dmg - defensivePower;
+	if (nHp <= calDmg)
+		nHp = 0;
+	else
+		nHp -= calDmg;
+	return nHp;
+}
+int player::HealHP(int hp){
+	if (hp > HP - nHp)
+		nHp = HP;
+	else
+		nHp += hp;
+	return nHp;
+}
+int player::HealAP(int ap){
+	if (ap > AP - nAP)
+		nAP = AP;
+	else
+		nAP += ap;
+	return nAP;
+}
+void player::Getexp(int pexp){
+	nexp += pexp;
+	if (nexp >= exp)
+		Lvup();
+}
+void player::checkSkill(int *arr) const
+{
+	for (int i = 0; i < SKILL_NUM; i++)
+		arr[i] = sk_list[i];
 }
 void player::statuschange(){//gotoxy넣고 좌표조정부탁드립니다.
 	int nstr = 0, ndex = 0, nhealth = 0, nluck = 0, xp = 0, yp = 0, off = 0;
