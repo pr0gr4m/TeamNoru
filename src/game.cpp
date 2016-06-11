@@ -1,8 +1,10 @@
 #include <iostream>
+#include <conio.h>
 #include "map.h"
 #include "lib.h"
 #include "game.h"
 #include "monster.h"
+#include "menu.h"
 
 static int nx = 1, ny = 1;
 static int nMove = 0;
@@ -16,13 +18,27 @@ void gameScreen(void)
 
 	while (1)
 	{
-		ch = getKey();
-		switch (ch)
+		ch = _getch();
+		if (ch == 0 || ch == 224)
 		{
-		case UP: case DOWN:
-		case LEFT: case RIGHT:
-			Move(ch);
-			break;
+			ch = _getch();
+			switch (ch)
+			{
+			case UP: case DOWN:
+			case LEFT: case RIGHT:
+				Move(ch);
+				break;
+			}
+		}
+		else
+		{
+			switch (ch)
+			{
+			case 'm': case 'M':
+				chooseMenu();
+				clrscr();
+				mapDraw(nStage);
+			}
 		}
 	}
 }

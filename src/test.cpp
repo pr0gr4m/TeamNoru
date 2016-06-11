@@ -8,12 +8,11 @@
 
 using namespace std;
 
+Player p("player");
+
 int main()
 {
-	setConsoleSize();
-	Player p("¿Ã∏ß");
 	p.Lvup();
-	p.statuschange();
-
+	gameScreen();
 	return 0;
 }

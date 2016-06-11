@@ -1,40 +1,91 @@
 #include "item.h"
+#include "lib.h"
 #include <cstring>
 
-ITEM::ITEM(const char *n, short t, short lev) 
-	:type(t), level(lev)
+using namespace std;
+
+Weapon::Weapon(itemLv lev)
+	: ITEM(ATTK, lev)
 {
-	std::strcpy(name, n);
+	if (lev == MIDDLE) {
+		std::strcpy(name, item_name[0]);
+		dmg = 10;
+	}
+	else if (lev == HIGH) {
+		std::strcpy(name, item_name[1]);
+		dmg = 20;
+	}
+	else
+	{
+		cerr << "아이템 오류!" << endl;
+		exit(EXIT_FAILURE);
+	}
 }
 
-int Weapon1::Amount() const
+int Weapon::Amount() const
 {
 	return dmg;
 }
 
-int Weapon2::Amount() const
+Armor::Armor(itemLv lev)
+	: ITEM(DEF, lev)
 {
-	return dmg;
+	if (lev == MIDDLE) {
+		std::strcpy(name, item_name[2]);
+		def = 5;
+	}
+	else if (lev == HIGH) {
+		std::strcpy(name, item_name[3]);
+		def = 10;
+	}
+	else
+	{
+		cerr << "아이템 오류!" << endl;
+		exit(EXIT_FAILURE);
+	}
 }
 
-int Armor1::Amount() const
+int Armor::Amount() const
 {
 	return def;
 }
 
-int Armor2::Amount() const
+HPPotion::HPPotion(itemLv lev)
+	: ITEM(HEAL, lev)
 {
-	return def;
+	if (lev == LOW) {
+		std::strcpy(name, item_name[4]);
+		heal = 50;
+	}
+	else if (lev == MIDDLE) {
+		std::strcpy(name, item_name[5]);
+		heal = 100;
+	}
+	else
+	{
+		cerr << "아이템 오류!" << endl;
+		exit(EXIT_FAILURE);
+	}
 }
 
-int HPPotion1::Amount() const
+int HPPotion::Amount() const
 {
 	return heal;
 }
 
-int HPPotion2::Amount() const
+APPotion::APPotion(itemLv lev)
+	: ITEM(HEAL, lev)
 {
-	return heal;
+	if (lev == MIDDLE)
+	{
+		std::strcpy(name, item_name[6]);
+		heal = 30;
+	}
+	else
+	{
+		cerr << "아이템 오류!" << endl;
+		exit(EXIT_FAILURE);
+	}
 }
 
 int APPotion::Amount() const

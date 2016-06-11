@@ -6,85 +6,54 @@
 
 static const int ITEM_NUM = 7;
 static const char *item_name[ITEM_NUM] = { "ÇØ¸Ó", "Àü±âÅé", "°¡Á×°©¿Ê", "¹æÅºº¹", "»¡°£Æ÷¼Ç", "ÇÏ¾áÆ÷¼Ç", "ÆÄ¶õÆ÷¼Ç" };
+enum itemLv { LOW = 3, MIDDLE = 5, HIGH = 10 };
 
 class ITEM
 {
 public:
-	ITEM(const char *n, short t, short lev);
+	enum { NAME_LEN = 20 };
+	ITEM(short t, itemLv lev) : type(t), level(lev) { }
 	virtual int Amount() const = 0;
 	short Type() const { return type; }
 	short Level() const { return level; }
-private:
-	enum { NAME_LEN = 20 };
+protected:
 	char name[NAME_LEN];
-	short type, level;
+private:
+	short type;
+	itemLv level;
 };
 
-class Weapon1 :public ITEM
+class Weapon : public ITEM
 {
 public:
-	Weapon1(short lev = 3) :
-		ITEM(item_name[0], ATTK, lev), dmg(10) {}
+	Weapon(itemLv lev = MIDDLE);
 	int Amount() const;
 private:
 	int dmg;
 };
 
-class Weapon2 :public ITEM
+class Armor : public ITEM
 {
 public:
-	Weapon2(short lev = 5) :
-		ITEM(item_name[1], ATTK, lev), dmg(20) {}
-	int Amount() const;
-private:
-	int dmg;
-};
-
-class Armor1 :public ITEM
-{
-public:
-	Armor1(short lev = 3) :
-		ITEM(item_name[2], DEF, lev), def(5) {}
+	Armor(itemLv lev = MIDDLE);
 	int Amount() const;
 private:
 	int def;
 };
 
-class Armor2 :public ITEM
+class HPPotion : public ITEM
 {
 public:
-	Armor2(short lev = 5) :
-		ITEM(item_name[3], DEF, lev), def(10) {}
-	int Amount() const;
-private:
-	int def;
-};
-
-class HPPotion1 :public ITEM
-{
-public:
-	HPPotion1(short lev = 1) :
-		ITEM(item_name[4], HEAL, lev), heal(50) {}
+	HPPotion(itemLv lev = LOW);
 	int Amount() const;
 private:
 	int heal;
 };
 
-class HPPotion2 :public ITEM
+class APPotion : public ITEM
 {
 public:
-	HPPotion2(short lev = 1) :
-		ITEM(item_name[5], HEAL, lev), heal(100) {}
-	int Amount() const;
-private:
-	int heal;
-};
-
-class APPotion :public ITEM
-{
-public:
-	APPotion(short lev = 1) :
-		ITEM(item_name[6], HEAL, lev), heal(30) {}
+	APPotion(itemLv lev = MIDDLE);
 	int Amount() const;
 private:
 	int heal;

@@ -48,9 +48,10 @@ public:
 	int getMAXHP() const { return MAXHP; }
 	// 스킬 리스트
 	int sk_list[SKILL_NUM];
+	// 이름
+	char name[NAME_LEN];
 protected:
 	int defensivePower() { return DFS; }
-	char name[NAME_LEN];
 private:
 	int level;
 	int HP, AP, DMG, DFS;

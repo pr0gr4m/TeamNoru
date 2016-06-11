@@ -31,6 +31,8 @@ void Player::initializig(){
 	Lv = 1;
 	exp = 30;
 	sp = 0;
+	weapon = NULL;
+	armor = NULL;
 }
 
 void Player::Setstr(int nstr){
@@ -115,57 +117,66 @@ void Player::Getexp(int pexp){
 
 void Player::statuschange(){//gotoxy넣고 좌표조정부탁드립니다.
 	int nstr = 0, ndex = 0, nhealth = 0, nluck = 0, xp = 0, yp = 0, off = 0;
-	int x = 6, y = 3;
+	int x = 92, y = 3;
 	while (off == 0)
 	{
-		gotoxy(x, y);		cout << "┌────────────────────┐";
-		gotoxy(x, y + 1);	cout << "│STATUS CHANGE						   │";
-		gotoxy(x, y + 2);	cout << "│Strength : " << setw(3) << setfill(' ') << str << " + - " << nstr << "│";
-		gotoxy(x, y + 3);	cout << "│Dex      : " << setw(3) << setfill(' ') << dex << " + - " << ndex << "│";
-		gotoxy(x, y + 4);	cout << "│Health   : " << setw(3) << setfill(' ') << health << " + - " << nhealth << "│";
-		gotoxy(x, y + 5);	cout << "│Luck     : " << setw(3) << setfill(' ') << luck << " + - " << nluck << "│";
-		gotoxy(x, y + 6);	cout << "│  남은 스테이터스포인트: " << setw(2) << setfill(' ') << sp << "│";
-		gotoxy(x, y + 7);	cout << "└────────────────────┘";
+		gotoxy(x, y);		cout << "                              ";
+		gotoxy(x, y);		cout << "┌─────────────┐";
+		gotoxy(x, y + 1);	cout << "│STATUS CHANG              │";
+		gotoxy(x, y + 2);	cout << "│Strength : " << setw(3) << setfill(' ') << str << "   + -   " << nstr << "  │";
+		gotoxy(x, y + 3);	cout << "│Dex      : " << setw(3) << setfill(' ') << dex << "   + -   " << ndex << "  │";
+		gotoxy(x, y + 4);	cout << "│Health   : " << setw(3) << setfill(' ') << health << "   + -   " << nhealth << "  │";
+		gotoxy(x, y + 5);	cout << "│Luck     : " << setw(3) << setfill(' ') << luck << "   + -   " << nluck << "  │";
+		gotoxy(x, y + 6);	cout << "│남은 스테이터스포인트: " << setw(2) << setfill(' ') << sp << " │";
+		gotoxy(x, y + 7);	cout << "└─────────────┘";
 
-		if (xp == yp == 0){
-			gotoxy(x + 1, y + 2);
+		if (xp ==0 && yp == 0){
+			gotoxy(x + 2, y + 2);
 			setColor(BLACK, LIGHTGRAY);
-			cout << "Strength : " << setw(3) << setfill(' ') << str << " + - " << nstr;
+			cout << "Strength : " << setw(3) << setfill(' ') << str << "   + -   " << nstr;
+			setColor();
 		}
-		else if (xp == 0 || yp == 1){
-			gotoxy(x + 1, y + 3);
+		else if (xp == 0 && yp == 1){
+			gotoxy(x + 2, y + 3);
 			setColor(BLACK, LIGHTGRAY);
-			cout << "Dex      : " << setw(3) << setfill(' ') << dex << " + - " << ndex;
+			cout << "Dex      : " << setw(3) << setfill(' ') << dex << "   + -   " << ndex;
+			setColor();
 		}
-		else if (xp == 0 || yp == 2){
-			gotoxy(x + 1, y + 4);
+		else if (xp == 0 && yp == 2){
+			gotoxy(x + 2, y + 4);
 			setColor(BLACK, LIGHTGRAY);
-			cout << "Health   : " << setw(3) << setfill(' ') << health << " + - " << nhealth;
+			cout << "Health   : " << setw(3) << setfill(' ') << health << "   + -   " << nhealth;
+			setColor();
 		}
-		else if (xp == 0 || yp == 3){
-			gotoxy(x + 1, y + 5);
+		else if (xp == 0 && yp == 3){
+			gotoxy(x + 2, y + 5);
 			setColor(BLACK, LIGHTGRAY);
-			cout << "Luck     : " << setw(3) << setfill(' ') << luck << " + - " << nluck;
+			cout << "Luck     : " << setw(3) << setfill(' ') << luck << "   + -   " << nluck;
+			setColor();
 		}
-		else if (xp == 1 || yp == 0){
-			gotoxy(x + 15, y + 2);
+		else if (xp == 1 && yp == 0){
+			gotoxy(x + 18, y + 2);
 			setColor(BLACK, LIGHTGRAY);
-			cout << " + - " << nstr;
+			cout << " + -   " << nstr;
+			setColor();
 		}
-		else if (xp == 1 || yp == 1){
-			gotoxy(x + 15, y + 3);
+		else if (xp == 1 && yp == 1){
+			gotoxy(x + 18, y + 3);
 			setColor(BLACK, LIGHTGRAY);
-			cout << " + - " << ndex;
+			cout << " + -   " << ndex;
+			setColor();
 		}
-		else if (xp == 1 || yp == 2){
-			gotoxy(x + 15, y + 4);
+		else if (xp == 1 && yp == 2){
+			gotoxy(x + 18, y + 4);
 			setColor(BLACK, LIGHTGRAY);
-			cout << " + - " << nhealth;
+			cout << " + -   " << nhealth;
+			setColor();
 		}
-		else if (xp == 1 || yp == 3){
-			gotoxy(x + 15, y + 5);
+		else if (xp == 1 && yp == 3){
+			gotoxy(x + 18, y + 5);
 			setColor(BLACK, LIGHTGRAY);
-			cout << " + - " << nluck;
+			cout << " + -   " << nluck;
+			setColor();
 		}
 		ClearReadBuff();
 		int ch = getKey();
@@ -184,9 +195,9 @@ void Player::statuschange(){//gotoxy넣고 좌표조정부탁드립니다.
 				{
 					if (sp == 0)
 					{
-						gotoxy(6, 15); cout << "┌────────────────┐";
-						gotoxy(6, 16); cout << "│남은 스테이터스포인트가 없습니다│";
-						gotoxy(6, 17); cout << "└────────────────┘";
+						gotoxy(90, 15); cout << "┌────────────────┐";
+						gotoxy(90, 16); cout << "│남은 스테이터스포인트가 없습니다│";
+						gotoxy(90, 17); cout << "└────────────────┘";
 					}
 					else
 					{
@@ -198,9 +209,9 @@ void Player::statuschange(){//gotoxy넣고 좌표조정부탁드립니다.
 				{
 					if (sp == 0)
 					{
-						gotoxy(6, 15); cout << "┌────────────────┐";
-						gotoxy(6, 16); cout << "│남은 스테이터스포인트가 없습니다│";
-						gotoxy(6, 17); cout << "└────────────────┘";
+						gotoxy(90, 15); cout << "┌────────────────┐";
+						gotoxy(90, 16); cout << "│남은 스테이터스포인트가 없습니다│";
+						gotoxy(90, 17); cout << "└────────────────┘";
 					}
 					else
 					{
@@ -212,9 +223,9 @@ void Player::statuschange(){//gotoxy넣고 좌표조정부탁드립니다.
 				{
 					if (sp == 0)
 					{
-						gotoxy(6, 15); cout << "┌────────────────┐";
-						gotoxy(6, 16); cout << "│남은 스테이터스포인트가 없습니다│";
-						gotoxy(6, 17); cout << "└────────────────┘";
+						gotoxy(90, 15); cout << "┌────────────────┐";
+						gotoxy(90, 16); cout << "│남은 스테이터스포인트가 없습니다│";
+						gotoxy(90, 17); cout << "└────────────────┘";
 					}
 					else
 					{
@@ -226,24 +237,24 @@ void Player::statuschange(){//gotoxy넣고 좌표조정부탁드립니다.
 				{
 					if (sp == 0)
 					{
-						gotoxy(6, 15); cout << "┌────────────────┐";
-						gotoxy(6, 16); cout << "│남은 스테이터스포인트가 없습니다│";
-						gotoxy(6, 17); cout << "└────────────────┘";
+						gotoxy(90, 15); cout << "┌────────────────┐";
+						gotoxy(90, 16); cout << "│남은 스테이터스포인트가 없습니다│";
+						gotoxy(90, 17); cout << "└────────────────┘";
 					}
 					else
 					{
 						nluck++;
 						sp--;
 					}
-				}
-				break;
+				}	
 			}
+			break;
 		case DOWN: case 's': case 'S':
 			if (xp == 0)
 			{
 				yp++;
-				if (yp > 5)
-					yp = 5;
+				if (yp > 3)
+					yp = 3;
 			}
 			else
 			{
@@ -294,10 +305,10 @@ void Player::statuschange(){//gotoxy넣고 좌표조정부탁드립니다.
 		case 10: case 13:
 			if (sp != 0)
 			{
-				gotoxy(6, 15); cout << "┌────────────────┐";
-				gotoxy(6, 16); cout << "│남은 스테이터스포인트가 있습니다│";
-				gotoxy(6, 17); cout << "│정말로 종료하시겠습니까?  (Y/N) │";
-				gotoxy(6, 18); cout << "└────────────────┘";
+				gotoxy(90, 15); cout << "┌────────────────┐";
+				gotoxy(90, 16); cout << "│남은 스테이터스포인트가 있습니다│";
+				gotoxy(90, 17); cout << "│정말로 종료하시겠습니까?  (Y/N) │";
+				gotoxy(90, 18); cout << "└────────────────┘";
 				ClearReadBuff();
 				while (true)
 				{
@@ -309,13 +320,17 @@ void Player::statuschange(){//gotoxy넣고 좌표조정부탁드립니다.
 					}
 					else if (yn == 'n' || yn == 'N')
 					{
-						gotoxy(6, 15); cout << "                                    ";
-						gotoxy(6, 16); cout << "                                    ";
-						gotoxy(6, 17); cout << "                                    ";
-						gotoxy(6, 18); cout << "                                    ";
-						gotoxy(6, 15); cout << "┌─────────┐";
-						gotoxy(6, 16); cout << "│종료를 취소합니다 │";
-						gotoxy(6, 17); cout << "└─────────┘";
+						gotoxy(90, 15); cout << "                                    ";
+						gotoxy(90, 16); cout << "                                    ";
+						gotoxy(90, 17); cout << "                                    ";
+						gotoxy(90, 18); cout << "                                    ";
+						gotoxy(90, 15); cout << "┌─────────┐";
+						gotoxy(90, 16); cout << "│종료를 취소합니다 │";
+						gotoxy(90, 17); cout << "└─────────┘";
+						_sleep(200);
+						gotoxy(90, 15); cout << "                                    ";
+						gotoxy(90, 16); cout << "                                    ";
+						gotoxy(90, 17); cout << "                                    ";
 						break;
 					}
 				}

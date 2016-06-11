@@ -14,15 +14,13 @@ private:
 	int health;
 	int HP;//현재최대 hp
 	int AP;//현재 최대ap
-	int item[7];
 	int Lv;
-	int exp;
-	int sp;
-	enum{ NAME_LEN = 20, BUF_SIZE = 256 };
-	char name[NAME_LEN];
-
+	int exp;//필요exp
+	int sp;//스테이터스 포인트
+	Weapon *weapon;
+	Armor *armor;
+	enum { NAME_LEN = 20, BUF_SIZE = 256 };
 	void initializig();
-
 public:
 	Player();	// 불러오기용 디폴트 생성자
 	Player(const char *n);	// 이름 입력받는 생성자
@@ -45,9 +43,12 @@ public:
 	int HealHP(int hp);// 회복할 hp계산
 	int HealAP(int ap);//회복할 ap계산
 	void Getexp(int pexp);//exp계산
-
+	char name[NAME_LEN];
 	int sk_list[SKILL_NUM];
 	int item_list[ITEM_NUM];
+	// 무기 및 방어구 장착 함수 만들어야함
 };
+
+extern Player p;
 
 #endif
