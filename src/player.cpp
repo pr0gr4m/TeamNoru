@@ -12,6 +12,16 @@ using std::setw;
 using std::endl;
 player::player()
 {
+	while (true)
+	{
+		cout << "당신의 이름은 무었입니까? ";
+		cin >> buf;
+		if (strlen(buf) >= 20)
+			cout << "이름이 너무 깁니다 영어1~19자, 한글과 특수문자는 1~9자 이내로 이름지어주세요.";
+		else
+			break;
+	}
+	initializig();
 	Sethp();
 	Setap();
 }
@@ -19,6 +29,15 @@ player::player()
 
 player::~player()
 {
+}
+void player::initializig(){
+	str = 3;
+	luck = 1;
+	dex = 3;
+	health = 3;
+	Lv = 1;
+	exp = 30;
+	sp = 0;
 }
 void player::Setstr(int nstr){
 	str += nstr;
@@ -31,10 +50,6 @@ void player::Setdex(int ndex){
 }
 void player::Sethealth(int nhealth){
 	health += nhealth;
-}
-void player::Setitem(int *nitem){//변경사항만 처리
-	for (int i = 0; i < 7; i++)
-		item[i] += nitem[i];
 }
 void player::Sethp(){
 	float hp = health * 4 + str*1.5;
@@ -95,11 +110,7 @@ void player::Getexp(int pexp){
 	if (nexp >= exp)
 		Lvup();
 }
-void player::checkSkill(int *arr) const
-{
-	for (int i = 0; i < SKILL_NUM; i++)
-		arr[i] = sk_list[i];
-}
+
 void player::statuschange(){//gotoxy넣고 좌표조정부탁드립니다.
 	int nstr = 0, ndex = 0, nhealth = 0, nluck = 0, xp = 0, yp = 0, off = 0;
 	while (off == 0)
