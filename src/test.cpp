@@ -4,12 +4,16 @@
 #include "map.h"
 #include "lib.h"
 #include "game.h"
+#include "player.h"
 
 using namespace std;
 
 int main()
 {
-	gameScreen();
+	setConsoleSize();
+	Player p("¿Ã∏ß");
+	p.Lvup();
+	p.statuschange();
 
 	return 0;
 }

@@ -1,9 +1,12 @@
 #include <iostream>
+#include <fstream>
 #include <cstring>
+#include <string>
 #include "lib.h"
 #include "monster.h"
 
-Monster::Monster(int lev, int val, short type)	
+
+Monster::Monster(int lev, int val, short type)
 	: level(lev)
 {
 	int base = level / 10 + 1;
@@ -60,15 +63,46 @@ void Monster::printStatus() const
 // 경험치 반환
 int Monster::Exp() const
 {
-	int exp = level * 10;
+	int exp = level * 15;
 	return exp * (RandDouble(0.4) + 0.8);
 }
 
-// 전달받은 배열에 보유중인 스킬 리스트 복사
-void Monster::checkSkill(int *arr) const
+// 아스키 아트 출력
+bool Monster::printASCII() const
 {
-	for (int i = 0; i < SKILL_NUM; i++)
-		arr[i] = sk_list[i];
+	using namespace std;
+	char f_name[FILE_LEN];
+	strcpy(f_name, "ASCII\\");
+	strcat(f_name, name);
+	strcat(f_name, ".txt");
+	std::ifstream infile(f_name,
+		ios_base::in | ios_base::binary);
+	if (!infile.is_open())
+	{
+		cerr << f_name << " 파일이 존재하지 않습니다.";
+		return false;
+	}
+	
+	cout << endl << endl;
+	char buf[BUF_LEN];
+	std::memset(buf, 0, BUF_LEN);
+	while (!infile.eof())
+	{
+		infile.read((char*)buf, BUF_LEN - 1);
+		buf[BUF_LEN - 1] = 0;
+		cout << buf;
+		std::memset(buf, 0, BUF_LEN);
+	}
+	if (infile.fail())
+	{
+		infile.close();
+		return false;
+	}
+	else
+	{
+		infile.close();
+		return true;
+	}
 }
 
 LowMonster::LowMonster(int lev, int val, short type) : Monster(lev, val, type)
@@ -92,7 +126,7 @@ LowMonster::LowMonster(int lev, int val, short type) : Monster(lev, val, type)
 	}
 }
 
-HighMonster::HighMonster(int lev, int val, short type) 
+HighMonster::HighMonster(int lev, int val, short type)
 	: Monster(lev, val, type)
 {
 	for (int i = 1; i < SKILL_NUM; i += 3)
