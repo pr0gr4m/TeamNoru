@@ -2,6 +2,7 @@
 #include "map.h"
 #include "lib.h"
 #include "game.h"
+#include "monster.h"
 
 static int nx = 1, ny = 1;
 static int nStage = 0;
@@ -115,8 +116,14 @@ void Move(int dir)
 			map[nStage][ny][nx] = 9;
 			gotoxy(nx * 2 + 2, ny);
 			std::cout << "＠";
-			if (RandInt(10))
+			if (nStage != 0 && !RandInt(5))
 			{
+				LowMonster du(1, 20, DEFN);
+				clrscr();
+				du.printASCII();
+				getKey();
+				clrscr();
+				mapDraw(nStage);
 				// 10분의 1 확률로 전투
 			}
 			// 움직임

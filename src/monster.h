@@ -21,6 +21,7 @@ static const int BOSS_LEVEL = 50;
 class Monster
 {
 public:
+	enum { NAME_LEN = 20, SKILL_NUM = 10, FILE_LEN = 30 };
 	// 생성자
 	Monster(int lev, int val = 0, short type = NORM);
 	// 죽었는지 확인
@@ -37,12 +38,12 @@ public:
 	virtual bool isCritical() const = 0;
 	// 죽었을 때 경험치 량
 	int Exp() const;
-	// 스킬 리스트 체크
-	void checkSkill(int *ar) const;
-protected:
-	enum { NAME_LEN = 20, SKILL_NUM = 10 };
-	int defensivePower() { return DFS; }
+	// 아스키 아트 출력
+	bool printASCII() const;
+	// 스킬 리스트
 	int sk_list[SKILL_NUM];
+protected:
+	int defensivePower() { return DFS; }
 	char name[NAME_LEN];
 private:
 	int level;
