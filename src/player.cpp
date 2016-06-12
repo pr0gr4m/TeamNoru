@@ -316,7 +316,7 @@ void Player::statuschange(){//gotoxy넣고 좌표조정부탁드립니다.
 		case RIGHT: case 'd': case 'D':
 			xp++;
 			if (xp > 1)
-				xp = 1;		// 여기 왜 == 였음?
+				xp = 1;		// 여기 왜 == 였음?//멘탈이 나간상태라 그랬나봅니다
 			break;
 		case 10: case 13:
 			if (sp != 0)
