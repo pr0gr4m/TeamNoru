@@ -14,11 +14,12 @@ private:
 	int health;
 	int HP;//현재최대 hp
 	int AP;//현재 최대ap
-	int item[7];
 	int Lv;
 	int exp;//필요exp
 	int sp;//스테이터스 포인트
-	enum{ NAME_LEN = 20, BUF_SIZE = 256 };
+	Weapon *weapon;
+	Armor *armor;
+	enum { NAME_LEN = 20, BUF_SIZE = 256 };
 	void initializig();
 public:
 	Player();	// 불러오기용 디폴트 생성자
@@ -45,6 +46,10 @@ public:
 	char name[NAME_LEN];
 	int sk_list[SKILL_NUM];
 	int item_list[ITEM_NUM];
+	int item_mount(int *item_list);
+	// 무기 및 방어구 장착 함수 만들어야함
 };
+
+extern Player p;
 
 #endif
