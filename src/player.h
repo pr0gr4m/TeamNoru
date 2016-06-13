@@ -48,7 +48,8 @@ public:
 	int item_list[ITEM_NUM];
 	void view_itemlist();
 	void item_mount();
-	// 무기 및 방어구 장착 함수 만들어야함
+	void equipped();
+	void view_skills();
 };
 
 extern Player p;
