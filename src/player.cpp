@@ -724,72 +724,72 @@ void Player::view_skills(){
 	if (sk_list[0] != 0)
 	{
 		gotoxy(x + 3, y + 1 + i);
-		cout << "강타 Lv1         소모ap:  10";
-		gotoxy(x + 8, y + 2 + i);
+		cout << "강타 Lv1       소모ap:  10";
+		gotoxy(x + 6, y + 2 + i);
 		cout << "데미지: 100 ~ 120";
 		i += 2;
 	}
 	if (sk_list[1] != 0)
 	{
 		gotoxy(x + 3, y + 1 + i);
-		cout << "강타 Lv2         소모ap:  20";
-		gotoxy(x + 8, y + 2 + i);
+		cout << "강타 Lv2       소모ap:  20";
+		gotoxy(x + 6, y + 2 + i);
 		cout << "데미지: 200 ~ 240";
 		i += 2;
 	}if (sk_list[2] != 0)
 	{
 		gotoxy(x + 3, y + 1 + i);
-		cout << "강타 Lv3         소모ap:  30";
-		gotoxy(x + 8, y + 2 + i);
+		cout << "강타 Lv3       소모ap:  30";
+		gotoxy(x + 6, y + 2 + i);
 		cout << "데미지: 300 ~ 360";
 		i += 2;
 	}if (sk_list[3] != 0)
 	{
 		gotoxy(x + 3, y + 1 + i);
-		cout << "몰아치기 Lv1     소모ap:  10";
-		gotoxy(x + 8, y + 2 + i);
-		cout << "데미지: 일반공격력 X 1.5 ";
+		cout << "몰아치기 Lv1   소모ap:  10";
+		gotoxy(x + 6, y + 2 + i);
+		cout << "데미지: 일반공격력 X 1.5";
 		i += 2;
 	}if (sk_list[4] != 0)
 	{
-		gotoxy(x + 3, y + 1 + i);
-		cout << "몰아치기 Lv2     소모ap:  50";
-		gotoxy(x + 8, y + 2 + i);
+		gotoxy(x + 6, y + 1 + i);
+		cout << "몰아치기 Lv2   소모ap:  50";
+		gotoxy(x + 6, y + 2 + i);
 		cout << "데미지: 일반공격력 X 1.5";
 		i += 2;
 	}if (sk_list[5] != 0)
 	{
 		gotoxy(x + 3, y + 1 + i);
-		cout << "몰아치기 Lv3     소모ap: 120";
-		gotoxy(x + 8, y + 2 + i);
+		cout << "몰아치기 Lv3   소모ap: 120";
+		gotoxy(x + 6, y + 2 + i);
 		cout << "데미지: 일반공격력 X 1.5";
 		i += 2;
 	}if (sk_list[6] != 0)
 	{
 		gotoxy(x + 3, y + 1 + i);
-		cout << "회복 Lv1        소모ap:  15";
-		gotoxy(x + 8, y + 2 + i);
+		cout << "회복 Lv1       소모ap:  15";
+		gotoxy(x + 6, y + 2 + i);
 		cout << "회복량: 30 ";
 		i += 2;
 	}if (sk_list[7] != 0)
 	{
 		gotoxy(x + 3, y + 1 + i);
-		cout << "회복 Lv2        소모ap:  30";
-		gotoxy(x + 8, y + 2 + i);
+		cout << "회복 Lv2       소모ap:  30";
+		gotoxy(x + 6, y + 2 + i);
 		cout << "회복량: 60";
 		i += 2;
 	}if (sk_list[8] != 0)
 	{
 		gotoxy(x + 3, y + 1 + i);
-		cout << "회복 Lv3        소모ap:  45";
-		gotoxy(x + 8, y + 2 + i);
+		cout << "회복 Lv3       소모ap:  45";
+		gotoxy(x + 6, y + 2 + i);
 		cout << "회복량: 90";
 		i += 2;
 	}if (sk_list[9] != 0)
 	{
 		gotoxy(x + 3, y + 1 + i);
 		cout << "갬블           소모ap: ??";
-		gotoxy(x + 8, y + 2 + i);
+		gotoxy(x + 6, y + 2 + i);
 		cout << "데미지: ??? ";
 		i += 2;
 	}
