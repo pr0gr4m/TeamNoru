@@ -5,6 +5,7 @@
 #include <cstring>
 #include "lib.h"
 #include <iomanip>
+#include "menu.h"
 using std::cout;
 using std::cin;
 using std::setfill;
@@ -14,7 +15,7 @@ using std::setiosflags;
 using std::ios;
 extern Skill * skList[10];
 extern ITEM * itList[7];
-extern char *item_name[ITEM_NUM];
+extern const char *item_name[ITEM_NUM];
 Player::Player()
 {
 	// 로드용 디폴트 생성자
@@ -81,7 +82,7 @@ bool Player::critical(){
 
 int Player::attackDamage()
 {
-	int dmg = pattack()+weapon.Amount();
+	int dmg = pattack()+(weapon->Amount());
 	if (critical())
 		return dmg * 2;
 	else
@@ -89,7 +90,7 @@ int Player::attackDamage()
 }
 
 int Player::beatenDamage(int dmg){
-	int defensivePower = pdefense() + armor.Amount();
+	int defensivePower = pdefense()+ (armor->Amount());
 	int calDmg = dmg - defensivePower;
 	if (nHp <= calDmg)
 		nHp = 0;
@@ -417,7 +418,7 @@ void Player::view_itemlist(int* item_list){
 	gotoxy(x, y  + i);
 	cout << "└──────────┘";
 }
-int Player::item_mount(int *item_list){
+void Player::item_mount(int *item_list){
 	int yp = 0, i, j = 0, off=0;
 	int x = 94, y = 4;
 	int ion[7];
@@ -497,17 +498,19 @@ int Player::item_mount(int *item_list){
 			break;
 		case 10: case 13:
 			if (ion[yp] == 0 || ion[yp] == 1)
-				weapon = itList[yp];
+				weapon = (Weapon*)itList[yp];
 			else if (ion[yp] == 2 || ion[yp] == 3)
-				armor = itList[yp];
-			else
-				//포션
+				armor = (Armor *)itList[yp];
+			/*else
+				//포션*/
 				break;
+		
 		case 'b': case 'B':
 			off++;
 		default:
 			break;
 		}
 	}
-	//여기에 메뉴로 돌아가는걸 넣어야 합니다만, 메뉴창이 안나와서 못하는중입니다.
+	chooseMenu();
+	//여기에 메뉴로 돌아가는걸 넣어야 합니다.
 }

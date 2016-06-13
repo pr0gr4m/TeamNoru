@@ -47,7 +47,7 @@ public:
 	int sk_list[SKILL_NUM];
 	int item_list[ITEM_NUM];
 	void view_itemlist(int* item_list);
-	int item_mount(int *item_list);
+	void item_mount(int *item_list);
 	// 무기 및 방어구 장착 함수 만들어야함
 };
 
