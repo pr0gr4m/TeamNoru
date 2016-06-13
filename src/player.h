@@ -42,6 +42,8 @@ public:
 	int beatenDamage(int dmg);// 받을 데미지 계산
 	int HealHP(int hp);// 회복할 hp계산
 	int HealAP(int ap);//회복할 ap계산
+	int getMaxHp() const { return HP; }
+	int getMaxAp() const { return AP; }
 	void Getexp(int pexp);//exp계산
 	char name[NAME_LEN];
 	int sk_list[SKILL_NUM];
@@ -49,6 +51,7 @@ public:
 	void view_itemlist();
 	void item_mount();
 	void equipped();
+	void view_skills();
 };
 
 extern Player p;

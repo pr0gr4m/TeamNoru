@@ -48,7 +48,7 @@ void setCursorType(CURSOR_TYPE type)
 
 void setConsoleSize(void)
 {
-	system("mode con: cols=150 lines=50");
+	system("mode con: cols=140 lines=52");
 	system("cls");
 }
 

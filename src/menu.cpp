@@ -95,6 +95,7 @@ void chooseMenu()
 			break;
 		case WITEM:
 			eraseMenu();
+			p.equipped();
 			// 장착 아이템 보여줌
 			break;
 		case HITEM:
@@ -103,6 +104,8 @@ void chooseMenu()
 			// 소유 아이템 보여줌
 			break;
 		case HSKILL:
+			eraseMenu();
+			p.view_skills();
 			// 보유 스킬 보여줌
 			break;
 		case SAVE:

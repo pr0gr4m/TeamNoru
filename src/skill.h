@@ -18,6 +18,7 @@ int SkillDamage(int i);
  */
 class Skill
 {
+	enum { NAME_LEN = 20 };
 public:
 	Skill(const char *n, short t, short lev = 1);
 	// 스킬 공격/회복력 수치. 인자 dmg는 중첩 공격을 위함
@@ -28,9 +29,9 @@ public:
 	short Type() const { return type; }
 	// 스킬 레벨
 	short Level() const { return level; }
-private:
-	enum { NAME_LEN = 20 };
+	// 스킬 이름
 	char name[NAME_LEN];
+private:
 	short type, level;
 };
 

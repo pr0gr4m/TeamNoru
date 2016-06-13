@@ -6,7 +6,7 @@
 
 static const int ITEM_NUM = 7;
 static const char *item_name[ITEM_NUM] = { "ÇØ¸Ó", "Àü±âÅé", "°¡Á×°©¿Ê", "¹æÅºº¹", "»¡°£Æ÷¼Ç", "ÇÏ¾áÆ÷¼Ç", "ÆÄ¶õÆ÷¼Ç" };
-enum itemLv { LOW = 3, MIDDLE = 5, HIGH = 10 };
+enum itemLv { START = 1, LOW = 3, MIDDLE = 5, HIGH = 10 };
 
 class ITEM
 {

@@ -6,6 +6,7 @@
 #include "monster.h"
 #include "menu.h"
 #include "npc.h"
+#include "Battle.h"
 
 static int nx = 1, ny = 1;
 static int nStage = 0;
@@ -171,10 +172,9 @@ void Move(int dir)
 			std::cout << "Ｐ";
 			if (nStage != 0 && !RandInt(10))
 			{
-				LowMonster du(1, 20, DEFN);
+				LowMonster du(1, 30, DEFN);
 				clrscr();
-				du.printASCII();
-				getKey();
+				Battle b(du);
 				clrscr();
 				mapDraw(nStage);
 				// 10분의 1 확률로 전투

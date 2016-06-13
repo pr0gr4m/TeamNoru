@@ -44,8 +44,12 @@ int main()
 	initSkill();
 	initItem();
 	p.Lvup();
+	SetRand();
 	p.item_list[0] = 1;
 	p.item_list[5] = 2;
+	p.item_list[3] = 1;
+	p.sk_list[1] = 1;
+	p.sk_list[9] = 1;
 	gameScreen();
 	return 0;
 }

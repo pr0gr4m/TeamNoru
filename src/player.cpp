@@ -28,13 +28,15 @@ Player::Player(const char *n)
 	initializig();
 	Sethp();
 	Setap();
+	nHp = HP;
+	nAP = AP;
 }
 
 void Player::initializig(){
-	str = 3;
-	luck = 1;
-	dex = 3;
-	health = 3;
+	str = 15;
+	luck = 5;
+	dex = 10;
+	health = 5;
 	Lv = 1;
 	exp = 30;
 	sp = 0;
@@ -83,7 +85,10 @@ bool Player::critical(){
 
 int Player::attackDamage()
 {
-	int dmg = pattack()+(weapon->Amount());
+	int dmg = pattack();
+	if (weapon != NULL)
+		dmg += (weapon->Amount());
+
 	if (critical())
 		return dmg * 2;
 	else
@@ -91,13 +96,15 @@ int Player::attackDamage()
 }
 
 int Player::beatenDamage(int dmg){
-	int defensivePower = pdefense()+ (armor->Amount());
-	int calDmg = dmg - defensivePower;
+	int defensivePower = pdefense();
+	if (armor != NULL)
+		defensivePower += (armor->Amount());
+	int calDmg = dmg - defensivePower > 0 ? dmg - defensivePower : 0;
 	if (nHp <= calDmg)
 		nHp = 0;
 	else
 		nHp -= calDmg;
-	return nHp;
+	return calDmg;
 }
 
 int Player::HealHP(int hp){
@@ -433,7 +440,7 @@ void Player::view_itemlist(){
 	
 }
 void Player::item_mount(){
-	int yp = 0, i, j = 0;
+	int yp = 0, i, j = 0, off=0;
 	int x = 95, y = 4;
 	int ion[7];
 	for (i = 0; i < ITEM_NUM; i++)
@@ -443,8 +450,20 @@ void Player::item_mount(){
 			ion[j] = i;
 			j++;
 		}
+		if (i == ITEM_NUM - 1 && j == 0)
+		{
+			view_itemlist();
+			off++;
+			while (true)
+			{
+				ClearReadBuff();
+				int ch = getKey();
+				if (ch == 'b' || ch == 'B')
+					break;
+			}
+		}
 	}
-	while (true)
+	while (off==0)
 	{
 		view_itemlist();
 		if (yp == 0)
@@ -507,20 +526,87 @@ void Player::item_mount(){
 			break;
 		case DOWN: case 's': case 'S':
 			yp++;
-			if (yp > j)
-				yp = j;
+			if (yp > j-1)
+				yp = j-1;
 			break;
 		case 10: case 13:
 			if (ion[yp] == 0 || ion[yp] == 1)
-				weapon = (Weapon*)itList[yp];
+			{
+				gotoxy(90, 15); cout << "┌────────────────┐";
+				gotoxy(90, 16); cout << "│무기를 장착하시겠 습니까? (Y/N) │";
+				gotoxy(90, 17); cout << "└────────────────┘";
+				while (true)
+				{
+					int yn = getKey();
+					if (yn == 'y' || yn == 'Y')
+					{
+						if (Lv < itList[yp]->Level())
+						{
+							gotoxy(90, 15); cout << "┌────────────────┐";
+							gotoxy(90, 16); cout << "│레벨이 모자라 장착할 수 없습니다│";
+							gotoxy(90, 17); cout << "└────────────────┘";
+							_sleep(300);
+							gotoxy(90, 15); cout << "                                           ";
+							gotoxy(90, 16); cout << "                                           ";
+							gotoxy(90, 17); cout << "                                           ";
+						} 
+						else
+						{
+							weapon = (Weapon*)itList[yp];
+							gotoxy(90, 15); cout << "                                           ";
+							gotoxy(90, 16); cout << "                                           ";
+							gotoxy(90, 17); cout << "                                           ";
+						}
+						break;
+					}
+					else if (yn == 'n' || yn == 'N')
+					{
+						break;
+					}
+				}
+				
+			}
 			else if (ion[yp] == 2 || ion[yp] == 3)
-				armor = (Armor *)itList[yp];
+			{
+				gotoxy(90, 15); cout << "┌─────────────────┐";
+				gotoxy(90, 16); cout << "│방어구를 장착하시겠 습니까? (Y/N) │";
+				gotoxy(90, 17); cout << "└─────────────────┘";
+				while (true)
+				{
+					int yn = getKey();
+					if (yn == 'y' || yn == 'Y')
+					{
+						if (Lv < itList[yp]->Level())
+						{
+							gotoxy(90, 15); cout << "┌────────────────┐";
+							gotoxy(90, 16); cout << "│레벨이 모자라 장착할 수 없습니다│";
+							gotoxy(90, 17); cout << "└────────────────┘";
+							_sleep(300);
+							gotoxy(90, 15); cout << "                                           ";
+							gotoxy(90, 16); cout << "                                           ";
+							gotoxy(90, 17); cout << "                                           ";
+						}
+						else
+						{
+							armor = (Armor *)itList[yp];
+							gotoxy(90, 15); cout << "                                           ";
+							gotoxy(90, 16); cout << "                                           ";
+							gotoxy(90, 17); cout << "                                           ";
+						}						
+						break;
+					}
+					else if (yn == 'n' || yn == 'N')
+					{
+						break;
+					}
+				}
+			}
 			/*else
 				//포션*/
 				break;
 		
 		case 'b': case 'B':
-			return;	// 메뉴로 돌아감
+			off++;
 		default:
 			break;
 		}
@@ -529,5 +615,197 @@ void Player::item_mount(){
 }
 void Player::equipped()
 {
-
+	int x=92, y=3;
+	gotoxy(x, y); cout << "┌──────────────────┐";
+	gotoxy(x, y + 1); cout << "│                                    │";
+	gotoxy(x, y + 2); cout << "│ Weapon                             │";
+	gotoxy(x, y + 3); cout << "│                                    │";
+	gotoxy(x, y + 4); cout << "│                                    │";
+	gotoxy(x, y + 5); cout << "│                                    │";
+	gotoxy(x, y + 6); cout << "│                                    │";
+	gotoxy(x, y + 7); cout << "│ Armor                              │";
+	gotoxy(x, y + 8); cout << "│                                    │";
+	gotoxy(x, y + 9); cout << "│                                    │";
+	gotoxy(x, y + 10); cout << "│                                    │";
+	gotoxy(x, y + 11); cout << "│                                    │";
+	gotoxy(x, y + 12); cout << "│                                    │";
+	gotoxy(x, y + 13); cout << "│                                    │";
+	gotoxy(x, y + 14); cout << "└──────────────────┘";
+	if (weapon==NULL)
+	{
+		gotoxy(x + 2, y + 4);
+		cout << "착용중인 무기가 존재하지 않습니다";
+	}
+	else if (weapon->Level() == MIDDLE)
+	{
+		gotoxy(x + 5, y + 4);
+		cout << "해머";
+		gotoxy(x + 7, y + 5);
+		cout << "공격력: 10";
+	}
+	else if (weapon->Level() == HIGH)
+	{
+		gotoxy(x + 5, y + 4);
+		cout << "전기톱";
+		gotoxy(x + 7, y + 5);
+		cout << "공격력: 20";
+	}
+	else
+	{
+		gotoxy(x + 5, y + 4);
+		cout << "착용중인 무기가 존재하지 않습니다";
+	}
+	if (armor==NULL)
+	{
+		gotoxy(x + 2, y + 9);
+		cout << "착용중인 방어구가 존재하지 않습니다";
+	}
+	else if (armor->Level() == MIDDLE)
+	{
+		gotoxy(x + 5, y + 9);
+		cout << "가죽갑옷";
+		gotoxy(x + 7, y + 10);
+		cout << "방어력: 5";
+	}
+	else if (armor->Level() == HIGH)
+	{
+		gotoxy(x + 5, y + 9);
+		cout << "방탄복";
+		gotoxy(x + 7, y + 10);
+		cout << "방어력: 10";
+	}
+	else
+	{
+		gotoxy(x + 5, y + 9);
+		cout << "착용중인 무기가 존재하지 않습니다.";
+	}
+	char ch;
+	while (true)
+	{
+		ch = getKey();
+		if (ch == 'b' || ch == 'B')
+			break;
+	}
+	gotoxy(x, y); cout << "                                              ";
+	gotoxy(x, y + 1); cout << "                                              ";
+	gotoxy(x, y + 2); cout << "                                              ";
+	gotoxy(x, y + 3); cout << "                                              ";
+	gotoxy(x, y + 4); cout << "                                              ";
+	gotoxy(x, y + 5); cout << "                                              ";
+	gotoxy(x, y + 6); cout << "                                              ";
+	gotoxy(x, y + 7); cout << "                                              ";
+	gotoxy(x, y + 8); cout << "                                              ";
+	gotoxy(x, y + 9); cout << "                                              ";
+	gotoxy(x, y + 10); cout << "                                              ";
+	gotoxy(x, y + 11); cout << "                                              ";
+	gotoxy(x, y + 12); cout << "                                              ";
+	gotoxy(x, y + 13); cout << "                                              ";
+	gotoxy(x, y + 14); cout << "                                              ";
+}
+void Player::view_skills(){
+	int x=92, y=3 , i=0;
+	gotoxy(x, y); cout << "┌──────────────┐";
+	gotoxy(x, y + 1); cout << "│                            │";
+	gotoxy(x, y + 2); cout << "│                            │";
+	gotoxy(x, y + 3); cout << "│                            │";
+	gotoxy(x, y + 4); cout << "│                            │";
+	gotoxy(x, y + 5); cout << "│                            │";
+	gotoxy(x, y + 6); cout << "│                            │";
+	gotoxy(x, y + 7); cout << "│                            │";
+	gotoxy(x, y + 8); cout << "│                            │";
+	gotoxy(x, y + 9); cout << "│                            │";
+	gotoxy(x, y + 10); cout << "│                            │";
+	gotoxy(x, y + 11); cout << "│                            │";
+	gotoxy(x, y + 12); cout << "│                            │";
+	gotoxy(x, y + 13); cout << "│                            │";
+	gotoxy(x, y + 14); cout << "│                            │";
+	gotoxy(x, y + 15); cout << "│                            │";
+	gotoxy(x, y + 16); cout << "│                            │";
+	gotoxy(x, y + 17); cout << "│                            │";
+	gotoxy(x, y + 18); cout << "│                            │";
+	gotoxy(x, y + 19); cout << "│                            │";
+	gotoxy(x, y + 20); cout << "│                            │";
+	gotoxy(x, y + 21); cout << "│                            │";
+	gotoxy(x, y + 22); cout << "│                            │";
+	gotoxy(x, y + 23); cout << "└──────────────┘";
+	if (sk_list[0] != 0)
+	{
+		gotoxy(x + 3, y + 1 + i);
+		cout << "강타 Lv1       소모ap:  10";
+		gotoxy(x + 6, y + 2 + i);
+		cout << "데미지: 100 ~ 120";
+		i += 2;
+	}
+	if (sk_list[1] != 0)
+	{
+		gotoxy(x + 3, y + 1 + i);
+		cout << "강타 Lv2       소모ap:  20";
+		gotoxy(x + 6, y + 2 + i);
+		cout << "데미지: 200 ~ 240";
+		i += 2;
+	}if (sk_list[2] != 0)
+	{
+		gotoxy(x + 3, y + 1 + i);
+		cout << "강타 Lv3       소모ap:  30";
+		gotoxy(x + 6, y + 2 + i);
+		cout << "데미지: 300 ~ 360";
+		i += 2;
+	}if (sk_list[3] != 0)
+	{
+		gotoxy(x + 3, y + 1 + i);
+		cout << "몰아치기 Lv1   소모ap:  10";
+		gotoxy(x + 6, y + 2 + i);
+		cout << "데미지: 일반공격력 X 1.5";
+		i += 2;
+	}if (sk_list[4] != 0)
+	{
+		gotoxy(x + 6, y + 1 + i);
+		cout << "몰아치기 Lv2   소모ap:  50";
+		gotoxy(x + 6, y + 2 + i);
+		cout << "데미지: 일반공격력 X 1.5";
+		i += 2;
+	}if (sk_list[5] != 0)
+	{
+		gotoxy(x + 3, y + 1 + i);
+		cout << "몰아치기 Lv3   소모ap: 120";
+		gotoxy(x + 6, y + 2 + i);
+		cout << "데미지: 일반공격력 X 1.5";
+		i += 2;
+	}if (sk_list[6] != 0)
+	{
+		gotoxy(x + 3, y + 1 + i);
+		cout << "회복 Lv1       소모ap:  15";
+		gotoxy(x + 6, y + 2 + i);
+		cout << "회복량: 30 ";
+		i += 2;
+	}if (sk_list[7] != 0)
+	{
+		gotoxy(x + 3, y + 1 + i);
+		cout << "회복 Lv2       소모ap:  30";
+		gotoxy(x + 6, y + 2 + i);
+		cout << "회복량: 60";
+		i += 2;
+	}if (sk_list[8] != 0)
+	{
+		gotoxy(x + 3, y + 1 + i);
+		cout << "회복 Lv3       소모ap:  45";
+		gotoxy(x + 6, y + 2 + i);
+		cout << "회복량: 90";
+		i += 2;
+	}if (sk_list[9] != 0)
+	{
+		gotoxy(x + 3, y + 1 + i);
+		cout << "갬블           소모ap: ??";
+		gotoxy(x + 6, y + 2 + i);
+		cout << "데미지: ??? ";
+		i += 2;
+	}
+	char ch;
+	while (true)
+	{
+		ch = getKey();
+		if (ch == 'b' || ch == 'B')
+			break;
+	}
+	gotoxy(x, y + 23); cout << "                                           ";
 }
