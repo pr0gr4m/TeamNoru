@@ -5,17 +5,18 @@ class Battle
 {
 public:
 	Battle(Monster&);
-	void BattleSystem(Monster&);
+	void BattleSystem();
 	~Battle();
-	bool ShowInventory(Monster& monster);
-	bool ShowSkills(Monster& monster);
-	void AIBattle(Monster&);
-	void Boxscreen(Monster& monster);
-	void Battlelog(Monster&monster,const char* Format, ...);
-	int BattleMenu(Monster& monster);
-	bool Run(Monster& monster);
+	bool ShowInventory();
+	bool ShowSkills();
+	void AIBattle();
+	void Boxscreen();
+	void Battlelog(const char* Format, ...);
+	int BattleMenu();
+	bool Run();
 private:
-	const char* Log[6][100];
+	char* Log[6];
 	int m_logcounter = 0;
+	Monster& monster;
 };
 

@@ -2,43 +2,44 @@
 #include "player.h"
 #include "skill.h"
 #include "item.h"
+#include <sstream>
 #include <stdarg.h>
 #include <conio.h>
 using namespace std;
-Battle::Battle(Monster& monster)
+Battle::Battle(Monster& _monster)
+	: monster(_monster)
 {
-	BattleSystem(monster);
+	BattleSystem();
 }
-
 
 Battle::~Battle()
 {
 }
 
-void Battle::BattleSystem(Monster& monster) {
+void Battle::BattleSystem() {
 	while (1) {
 		int battleget = 0;
 		clrscr();
-		battleget = BattleMenu(monster);
+		battleget = BattleMenu();
 		while(1) {
 			bool isCheck = false;
 			int damage = 0;
 			switch (battleget) {
 			case 1:
 				damage = p.attackDamage();
-				Battlelog(monster,"이얍! 평타!");
-				Battlelog(monster,"%y%s%w은/는 %r%d%w 데미지를 %y%s%w에게 주었다!", p.name, damage, monster.name);
+				Battlelog("이얍! 평타!");
+				Battlelog("%y%s%w은/는 %r%d%w 데미지를 %y%s%w에게 주었다!", p.name, damage, monster.name);
 				monster.beatenDamage(damage);
 				isCheck = true;
 				break;
 			case 2:
-				isCheck = ShowInventory(monster);
+				isCheck = ShowInventory();
 				break;
 			case 3:
-				isCheck = ShowSkills(monster);
+				isCheck = ShowSkills();
 				break;
 			case 4:
-				if (Run(monster)) {
+				if (Run()) {
 					return;
 				}
 				isCheck = true;
@@ -49,11 +50,11 @@ void Battle::BattleSystem(Monster& monster) {
 			if (isCheck)
 				break;
 		}
-		AIBattle(monster);
+		AIBattle();
 	}
 }
 
-bool Battle::ShowInventory(Monster& monster) {
+bool Battle::ShowInventory() {
 	char input = 0;
 	while (1) {
 		{
@@ -98,7 +99,7 @@ bool Battle::ShowInventory(Monster& monster) {
 			colm++;
 			cout << "└─────────────────────────────────┴──────────┘" << endl;
 			gotoxy(101, 15);
-			cout << p.nHp << "/" << p.getMAXHP() << "    " << p.nAP << "/" << p.getMAXAP();
+			cout << p.nHp << "/" << p.getMaxHp() << "    " << p.nAP << "/" << p.getMaxHp();
 			gotoxy(101, 17);
 			cout << monster.getHP() << "/" << monster.getMAXHP() << "      " << monster.getAP();
 			gotoxy(54, 12);
@@ -114,13 +115,13 @@ bool Battle::ShowInventory(Monster& monster) {
 		if (inp < 1 || inp>4)
 
 			if (input == 4) {
-				Boxscreen(monster);
+				Boxscreen();
 				return false;
 			}
 			else {
 				//아이템 사용
 				if (p.item_list[inp] > 0) {
-					Battlelog(monster, "%y%s%w은/는 %r%s%w을/를 사용했다!", p.name, item_name[inp]);
+					Battlelog("%y%s%w은/는 %r%s%w을/를 사용했다!", p.name, item_name[inp]);
 					//아이템 사용 함수 실행
 					p.item_list[inp]--;
 					return true;
@@ -133,24 +134,14 @@ bool Battle::ShowInventory(Monster& monster) {
 	}
 	
 }
-bool Battle::ShowSkills(Monster& monster) {
+bool Battle::ShowSkills() {
 	while (1) {
 		gotoxy(30, 10);
-		//cout << "┌────────────────────────────────────────────┐" << endl;
-		//cout << "│                                                                                        │" << endl;
-		//cout << "│                                                                                        │" << endl;
-		//cout << "│                                                                                        │" << endl;
-		//cout << "│                                                                                        │" << endl;
-		//cout << "│                                                                                        │" << endl;
-		//cout << "│                                                                                        │" << endl;
-		//cout << "└────────────────────────────────────────────┘" << endl;
-		//gotoxy(31, 11);
-		//return true;
 		cout << "┌────────────────────────────────────────────┐" << endl;
 		cout << "│                                                                                        │" << endl;
 		cout << "├────────────────────────────────────────────┤" << endl;
 		gotoxy(35, 11);
-		cout << p.name << "      HP   " << p.nHp << " / " << p.getMAXHP << "      AP   " << p.nAP << " / " << p.getMAXAP;
+		cout << p.name << "      HP   " << p.nHp << " / " << p.getMaxHp() << "      AP   " << p.nAP << " / " << p.getMaxHp();
 		int garo = 2;
 		for (int i = 0; i < SKILL_NUM; i++) {
 			if (p.sk_list[i]) {
@@ -186,20 +177,22 @@ bool Battle::ShowSkills(Monster& monster) {
 		int damage = 0;
 		if (p.nAP < 1/*스킬 사용 AP보다 낮다면*/) {
 			return false;
-			Battlelog(monster, "AP가 부족합니다!");
+			Battlelog("AP가 부족합니다!");
 		}
 		//스킬 사용 함수[num];
 		//스킬 AP 소모
-		Battlelog(monster,"%y%s%w은/는 %y%s%w을/를 사용했다!",p.name,sk_name[num]);
+		Battlelog("%y%s%w은/는 %y%s%w을/를 사용했다!",p.name,sk_name[num]);
 		return true;
 	}
 	
 }
-void Battle::Boxscreen(Monster& monster) {
+void Battle::Boxscreen() {
 	gotoxy(0, 0);
 	monster.printASCII();
 	gotoxy(0, 52);
-	cout << "┌─────────────────────────────────────────────────────────────────────────┐";
+	cout << "┌────────────────────────────────────┬────────────────────────────────────┐";
+	cout << "│                                                                        │                                                                        │";
+	cout << "├────────────────────────────────────┴────────────────────────────────────┤";
 	cout << "│                                                                                                                                                  │";
 	cout << "│                                                                                                                                                  │";
 	cout << "│                                                                                                                                                  │";
@@ -207,15 +200,30 @@ void Battle::Boxscreen(Monster& monster) {
 	cout << "│                                                                                                                                                  │";
 	cout << "│                                                                                                                                                  │";
 	cout << "└─────────────────────────────────────────────────────────────────────────┘";
-	gotoxy(0, 0);
+	gotoxy(8, 50);
+	setColor(YELLOW);
+	cout << p.name;
+	setColor();
+	gotoxy(28, 50);
+	cout << p.nHp << "/" << p.getMaxHp();
+	gotoxy(42, 50);
+	cout << p.nAP << "/" << p.getMaxAp();
+	gotoxy(94, 50);
+	setColor(RED);
+	cout << monster.name;
+	setColor();
+	gotoxy(112, 50);
+	cout << monster.getHP() << "/" <<monster.getMAXHP();
+	gotoxy(126, 50);
+	cout << monster.getAP() << " A P";
 }
-void Battle::AIBattle(Monster& monster){
+void Battle::AIBattle(){
 	while (1) {
 		if (RandInt(2)) {
 			int monsterdmg = monster.attackDamage();
 			//몬스터 평타
 			p.beatenDamage(monsterdmg);
-			Battlelog(monster,"/*PlayerName*/은/는 %r%d%w의 데미지를 입었다!", monsterdmg);
+			Battlelog("/*PlayerName*/은/는 %r%d%w의 데미지를 입었다!", monsterdmg);
 			break;
 		}
 		else {
@@ -224,8 +232,8 @@ void Battle::AIBattle(Monster& monster){
 				if (monster.sk_list[i]) {//스킬 있을때
 					if (monster.getAP() >1 ) {//스킬사용ap가 현재AP보다 높으면
 						int damage = 0;
-						Battlelog(monster,"%y%s%w은/는%y%s%w을/를 사용했다!", monster.name, monster.sk_list[i]);
-						Battlelog(monster,"%y%s%w은/는 %r%d%w의 데미지를 입었다!", p.name, damage);
+						Battlelog("%y%s%w은/는%y%s%w을/를 사용했다!", monster.name, monster.sk_list[i]);
+						Battlelog("%y%s%w은/는 %r%d%w의 데미지를 입었다!", p.name, damage);
 						p.beatenDamage(damage);
 						break;
 					}
@@ -234,74 +242,88 @@ void Battle::AIBattle(Monster& monster){
 		}
 	}
 }
-bool Battle::Run(Monster& monster) {
+bool Battle::Run() {
 	if (RandInt(3)) {
-		Battlelog(monster, "%y&s%w은/는 %y%s%w에게서 무사히 도망쳤다!", p.name, monster.name);
+		Battlelog("%y&s%w은/는 %y%s%w에게서 무사히 도망쳤다!", p.name, monster.name);
 		return true;
 	}
 	else
-		Battlelog(monster, "%y%s%w은/는 %y%s%w에게서 도망치는데 실패했다!", p.name, monster.name);
+		Battlelog("%y%s%w은/는 %y%s%w에게서 도망치는데 실패했다!", p.name, monster.name);
 		return false;
 }
 
-void Battle::Battlelog(Monster& monster,const char* Format, ...) {
+void Battle::Battlelog(const char* Format, ...) {
 	va_list list;
 	clrscr();
-	//아스키 출력
-	Boxscreen(monster);
+	Boxscreen();
 	int i;
 	int* idx = (int*)&Format;
 	idx++;
+	for (int i = 0; i < 5; i++) {
+		strcpy(Log[i + 1], Log[i]);
+	}
+	for (int i = 0; i < 6; i++) {
+		gotoxy(2, 56 - i);
+		setColor(LIGHTGRAY);
+		cout << Log[i+1];
+		setColor();
+	}
 	while (*Format != NULL) {
 		if (*Format == '%') {
 			switch (*(Format + 1))
 			{
 			case 'd':     // int 형 매개변수 출력  
+				strcat(Log[0], (char*)idx);
 				cout<<*(int*)idx;
 				idx++;
 				Format += 2;
 				break;
-			case 'c':     // char 형 매개변수 출력  
+			case 'c':     // char 형 매개변수 출력
+				strcat(Log[0], (char*)idx);
 				cout << *(int*)idx;
 				idx++;
 				Format += 2;
 				break;
 			case 'f':     // double 형 매개변수 출력  
+				strcat(Log[0], (char*)idx);
 				cout << *(int*)idx;
 				idx++;    // double 형은 8byte를 차지하기 때문에 4byte씩 2번 뛰어 넘는다.
 				idx++;
 				Format += 2;
 				break;
-			case 's':     // 문자열 매개변수 출력  
+			case 's':     // 문자열 매개변수 출력
+				strcat(Log[0], (char*)idx);
 				cout << *(int*)idx;
 				idx++;
 				Format += 2;
 				break;
 			case 'y':     // 옐로우 색
-				setColor(YELLOW,BLACK);
+				setColor(YELLOW);
 				Format += 2;
 				break;
-			case 'w':     // 색 조절 블랙  
-				setColor(WHITE, BLACK);
+			case 'w':     // 색 조절 화아이트
+				setColor(WHITE);
 				Format += 2;
 				break;
 			case 'r':     // 색 조절 레드 
-				setColor(RED, BLACK);
+				setColor(RED);
 				Format += 2;
 				break;
-
 			default:
 				break;
 			}
 		}
 		else
 		{
+			strcat(Log[0], Format);
 			cout << *Format;
 			Format++;
 		}
+		cout << "▼";
 	}
+	getchar();
 }
-int Battle::BattleMenu(Monster& monster) {
+int Battle::BattleMenu() {
 	while (1) {
 		monster.printASCII();
 		gotoxy(0, 52);
