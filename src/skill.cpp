@@ -1,6 +1,19 @@
 #include "skill.h"
 #include "lib.h"
+#include "player.h"
 #include <cstring>
+
+extern Skill * skList[10];
+
+int SkillDamage(int i)
+{
+	if (i >= 6 && i <= 8)
+	{
+		p.HealAP(skList[i]->Amount(0));
+		return 0;
+	}
+	return skList[i]->Amount(p.attackDamage());
+}
 
 Skill::Skill(const char *n, short t, short lev)
 	: type(t), level(lev)

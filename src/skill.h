@@ -8,6 +8,9 @@ static const int SK_TYPE = 4;
 static const char *sk_name[SK_TYPE] = { "강타", "몰아치기", "회복", "도박" };
 static const int SKILL_NUM = 10;
 
+// 스킬 사용
+int SkillDamage(int i);
+
 /*
  * 클래스 : Skill
  * 생성자 : 스킬 이름, 스킬 타입, 스킬 레벨을 전달받음
