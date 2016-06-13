@@ -6,6 +6,7 @@
 #include "lib.h"
 #include <iomanip>
 #include "menu.h"
+#include"item.h"
 using std::cout;
 using std::cin;
 using std::setfill;
@@ -15,7 +16,6 @@ using std::setiosflags;
 using std::ios;
 extern Skill * skList[10];
 extern ITEM * itList[7];
-extern const char *item_name[ITEM_NUM];
 Player::Player()
 {
 	// 로드용 디폴트 생성자
@@ -369,7 +369,7 @@ void Player::Lvup(){//좌표조정필요
 	sp += 5;
 	// 스탯은 메뉴에서 찍음
 }
-void Player::view_itemlist(int* item_list){
+void Player::view_itemlist(){
 	int x = 92, y = 3;
 	int i=1;
 	gotoxy(x, y); cout << "┌──────────────┐";
@@ -418,7 +418,7 @@ void Player::view_itemlist(int* item_list){
 	gotoxy(x, y  + i);
 	cout << "└──────────┘";
 }
-void Player::item_mount(int *item_list){
+void Player::item_mount(){
 	int yp = 0, i, j = 0, off=0;
 	int x = 94, y = 4;
 	int ion[7];
@@ -432,7 +432,7 @@ void Player::item_mount(int *item_list){
 	}
 	while (off==0)
 	{
-		view_itemlist(item_list);
+		view_itemlist();
 		if (yp == 0)
 		{
 			setColor(BLACK, LIGHTGRAY);
@@ -511,6 +511,5 @@ void Player::item_mount(int *item_list){
 			break;
 		}
 	}
-	chooseMenu();
 	//여기에 메뉴로 돌아가는걸 넣어야 합니다.
 }
