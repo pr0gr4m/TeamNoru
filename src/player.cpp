@@ -447,6 +447,13 @@ void Player::item_mount(){
 		{
 			view_itemlist();
 			off++;
+			while (true)
+			{
+				ClearReadBuff();
+				int ch = getKey();
+				if (ch == 'b' || ch == 'B')
+					break;
+			}
 		}
 	}
 	while (off==0)
@@ -601,26 +608,26 @@ void Player::item_mount(){
 }
 void Player::equipped()
 {
-	int x, y;
-	gotoxy(x, y); cout << "┌─────────────────┐";
-	gotoxy(x, y + 1); cout << "│                                  │";
-	gotoxy(x, y + 2); cout << "│ Weapon                           │";
-	gotoxy(x, y + 3); cout << "│                                  │";
-	gotoxy(x, y + 4); cout << "│                                  │";
-	gotoxy(x, y + 5); cout << "│                                  │";
-	gotoxy(x, y + 6); cout << "│                                  │";
-	gotoxy(x, y + 7); cout << "│ Armor                             │";
-	gotoxy(x, y + 8); cout << "│                                  │";
-	gotoxy(x, y + 9); cout << "│                                  │";
-	gotoxy(x, y + 10); cout << "│                                  │";
-	gotoxy(x, y + 11); cout << "│                                  │";
-	gotoxy(x, y + 12); cout << "│                                  │";
-	gotoxy(x, y + 13); cout << "│                                  │";
-	gotoxy(x, y + 14); cout << "└─────────────────┘";
+	int x=92, y=3;
+	gotoxy(x, y); cout << "┌──────────────────┐";
+	gotoxy(x, y + 1); cout << "│                                    │";
+	gotoxy(x, y + 2); cout << "│ Weapon                             │";
+	gotoxy(x, y + 3); cout << "│                                    │";
+	gotoxy(x, y + 4); cout << "│                                    │";
+	gotoxy(x, y + 5); cout << "│                                    │";
+	gotoxy(x, y + 6); cout << "│                                    │";
+	gotoxy(x, y + 7); cout << "│ Armor                              │";
+	gotoxy(x, y + 8); cout << "│                                    │";
+	gotoxy(x, y + 9); cout << "│                                    │";
+	gotoxy(x, y + 10); cout << "│                                    │";
+	gotoxy(x, y + 11); cout << "│                                    │";
+	gotoxy(x, y + 12); cout << "│                                    │";
+	gotoxy(x, y + 13); cout << "│                                    │";
+	gotoxy(x, y + 14); cout << "└──────────────────┘";
 	if (weapon==NULL)
 	{
-		gotoxy(x + 5, y + 4);
-		cout << "착용중인 무기가 존재하지 않습니다.";
+		gotoxy(x + 2, y + 4);
+		cout << "착용중인 무기가 존재하지 않습니다";
 	}
 	else if (weapon->Level() == MIDDLE)
 	{
@@ -639,12 +646,12 @@ void Player::equipped()
 	else
 	{
 		gotoxy(x + 5, y + 4);
-		cout << "착용중인 무기가 존재하지 않습니다.";
+		cout << "착용중인 무기가 존재하지 않습니다";
 	}
 	if (armor==NULL)
 	{
-		gotoxy(x + 5, y + 9);
-		cout << "착용중인 무기가 존재하지 않습니다.";
+		gotoxy(x + 2, y + 9);
+		cout << "착용중인 방어구가 존재하지 않습니다";
 	}
 	else if (armor->Level() == MIDDLE)
 	{
@@ -665,9 +672,31 @@ void Player::equipped()
 		gotoxy(x + 5, y + 9);
 		cout << "착용중인 무기가 존재하지 않습니다.";
 	}
+	char ch;
+	while (true)
+	{
+		ch = getKey();
+		if (ch == 'b' || ch == 'B')
+			break;
+	}
+	gotoxy(x, y); cout << "                                              ";
+	gotoxy(x, y + 1); cout << "                                              ";
+	gotoxy(x, y + 2); cout << "                                              ";
+	gotoxy(x, y + 3); cout << "                                              ";
+	gotoxy(x, y + 4); cout << "                                              ";
+	gotoxy(x, y + 5); cout << "                                              ";
+	gotoxy(x, y + 6); cout << "                                              ";
+	gotoxy(x, y + 7); cout << "                                              ";
+	gotoxy(x, y + 8); cout << "                                              ";
+	gotoxy(x, y + 9); cout << "                                              ";
+	gotoxy(x, y + 10); cout << "                                              ";
+	gotoxy(x, y + 11); cout << "                                              ";
+	gotoxy(x, y + 12); cout << "                                              ";
+	gotoxy(x, y + 13); cout << "                                              ";
+	gotoxy(x, y + 14); cout << "                                              ";
 }
 void Player::view_skills(){
-	int x, y, i=0;
+	int x=92, y=3 , i=0;
 	gotoxy(x, y); cout << "┌──────────────┐";
 	gotoxy(x, y + 1); cout << "│                            │";
 	gotoxy(x, y + 2); cout << "│                            │";
@@ -764,4 +793,12 @@ void Player::view_skills(){
 		cout << "데미지: ??? ";
 		i += 2;
 	}
+	char ch;
+	while (true)
+	{
+		ch = getKey();
+		if (ch == 'b' || ch == 'B')
+			break;
+	}
+	gotoxy(x, y + 23); cout << "                                           ";
 }
