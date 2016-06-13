@@ -3,6 +3,11 @@
 #include <conio.h>
 #include "lib.h"
 
+void Delay(int n)
+{
+	Sleep(n);
+}
+
 int getKey(void)
 {
 	int ch = _getch();

@@ -50,4 +50,6 @@ inline int RandInt(int n) { return rand() % n; }
 // 0 ~ n 사이의 랜덤 실수 생성
 inline double RandDouble(double n) { return (double)rand() / RAND_MAX * n; }
 
+void Delay(int n);
+
 #endif
