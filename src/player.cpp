@@ -6,7 +6,7 @@
 #include "lib.h"
 #include <iomanip>
 #include "menu.h"
-#include"item.h"
+#include "item.h"
 using std::cout;
 using std::cin;
 using std::setfill;
@@ -16,6 +16,7 @@ using std::setiosflags;
 using std::ios;
 extern Skill * skList[10];
 extern ITEM * itList[7];
+
 Player::Player()
 {
 	// 로드용 디폴트 생성자
@@ -372,55 +373,68 @@ void Player::Lvup(){//좌표조정필요
 void Player::view_itemlist(){
 	int x = 92, y = 3;
 	int i=1;
-	gotoxy(x, y); cout << "┌──────────────┐";
+	gotoxy(x, y);cout << "┌──────────────┐";
+	gotoxy(x, y+1); cout << "│                            │";
+	gotoxy(x, y+2); cout << "│                            │";
+	gotoxy(x, y+3); cout << "│                            │";
+	gotoxy(x, y+4); cout << "│                            │";
+	gotoxy(x, y+5); cout << "│                            │";
+	gotoxy(x, y+6); cout << "│                            │";
+	gotoxy(x, y+7); cout << "│                            │";
+	gotoxy(x, y+8); cout << "│                            │";
+	gotoxy(x, y+9); cout << "│                            │";
+	gotoxy(x, y + 10); cout << "│                            │";
+	gotoxy(x, y + 11); cout << "│                            │";
+	gotoxy(x, y + 12); cout << "│                            │";
+	gotoxy(x, y + 13); cout << "│                            │";
+	gotoxy(x, y+14); cout << "└──────────────┘";
 	if (item_list[0] != 0)
 	{
-		gotoxy(x, y + i); 
-		cout << "│ " << setiosflags(ios::left) << setw(9) << setfill(' ') << item_name[0] << " X " << setw(2) << setfill(' ') << item_list[0] << "│";
-		i++;
+		gotoxy(x+3, y +1 +i); 
+		cout <<  setiosflags(ios::left) << setw(11) << setfill(' ') << item_name[0] << " X " << setw(5) << setfill(' ') << item_list[0] ;
+		i+=2;
 	}
 	if (item_list[1] != 0)
 	{
-		gotoxy(x, y +i);
-		cout << "│ " << setiosflags(ios::left) << setw(9) << setfill(' ') << item_name[1] << " X " << setw(2) << setfill(' ') << item_list[1] << "│";
-		i++;
+		gotoxy(x+3, y+1 +i);
+		cout <<  setiosflags(ios::left) << setw(11) << setfill(' ') << item_name[1] << " X " << setw(5) << setfill(' ') << item_list[1] ;
+		i+=2;
 	}
 	if (item_list[2] != 0)
 	{
-		gotoxy(x, y + i);
-		cout << "│ " << setiosflags(ios::left) << setw(9) << setfill(' ') << item_name[2] << " X " << setw(2) << setfill(' ') << item_list[2] << "│";
-		i++;
+		gotoxy(x + 3, y + 1 + i);
+		cout <<  setiosflags(ios::left) << setw(11) << setfill(' ') << item_name[2] << " X " << setw(5) << setfill(' ') << item_list[2] ;
+		i+=2;
 	}
 	if (item_list[3] != 0)
 	{
-		gotoxy(x, y +  i);
-		cout << "│ " << setiosflags(ios::left) << setw(9) << setfill(' ') << item_name[3] << " X " << setw(2) << setfill(' ') << item_list[3] << "│";
-		i++;
+		gotoxy(x + 3, y + 1 + i);
+		cout <<  setiosflags(ios::left) << setw(11) << setfill(' ') << item_name[3] << " X " << setw(5) << setfill(' ') << item_list[3] ;
+		i+=2;
 	}
 	if (item_list[4] != 0)
 	{
-		gotoxy(x, y +  i);
-		cout << "│ " << setiosflags(ios::left) << setw(9) << setfill(' ') << item_name[4] << " X " << setw(2) << setfill(' ') << item_list[4] << "│";
-		i++;
+		gotoxy(x + 3, y + 1 + i);
+		cout <<  setiosflags(ios::left) << setw(11) << setfill(' ') << item_name[4] << " X " << setw(5) << setfill(' ') << item_list[4] ;
+		i+=2;
 	}
 	if (item_list[5] != 0)
 	{
-		gotoxy(x, y  + i);
-		cout << "│ " << setiosflags(ios::left) << setw(9) << setfill(' ') << item_name[5] << " X " << setw(2) << setfill(' ') << item_list[5] << "│";
-		i++;
+		gotoxy(x + 3, y + 1 + i);
+		cout <<  setiosflags(ios::left) << setw(11) << setfill(' ') << item_name[5] << " X " << setw(5) << setfill(' ') << item_list[5] ;
+		i+=2;
 	}
 	if (item_list[6] != 0)
 	{
-		gotoxy(x, y  + i);
-		cout << "│ " << setiosflags(ios::left) << setw(9) << setfill(' ') << item_name[6] << " X " << setw(2) << setfill(' ') << item_list[6] << "│";
-		i++;
+		gotoxy(x + 3, y + 1 + i);
+		cout <<  setiosflags(ios::left) << setw(11) << setfill(' ') << item_name[6] << " X " << setw(5) << setfill(' ') << item_list[6] ;
+		i+=2;
 	}
-	gotoxy(x, y  + i);
-	cout << "└──────────┘";
+	
 }
 void Player::item_mount(){
 	int yp = 0, i, j = 0, off=0;
-	int x = 94, y = 4;
+	int x = 95, y = 4;
 	int ion[7];
 	for (i = 0; i < ITEM_NUM; i++)
 	{
@@ -436,50 +450,50 @@ void Player::item_mount(){
 		if (yp == 0)
 		{
 			setColor(BLACK, LIGHTGRAY);
-			gotoxy(x, y);
-			cout << "│ " << setiosflags(ios::left) << setw(9) << setfill(' ') << item_name[ion[0]] << " X " << setw(2) << setfill(' ') << item_list[ion[0]] << "│";
+			gotoxy(x, y + 1);
+			cout <<  setiosflags(ios::left) << setw(11) << setfill(' ') << item_name[ion[0]] << " X " << setw(5) << setfill(' ') << item_list[ion[0]] ;
 			setColor();
 		}
 		else if (yp == 1)
 		{
 			setColor(BLACK, LIGHTGRAY);
-			gotoxy(x, y);
-			cout << "│ " << setiosflags(ios::left) << setw(9) << setfill(' ') << item_name[ion[1]] << " X " << setw(2) << setfill(' ') << item_list[ion[1]] << "│";
+			gotoxy(x, y + 2 + 1);
+			cout <<  setiosflags(ios::left) << setw(11) << setfill(' ') << item_name[ion[1]] << " X " << setw(5) << setfill(' ') << item_list[ion[1]] ;
 			setColor();
 		}
 		else if (yp == 2)
 		{
 			setColor(BLACK, LIGHTGRAY);
-			gotoxy(x, y);
-			cout << "│ " << setiosflags(ios::left) << setw(9) << setfill(' ') << item_name[ion[2]] << " X " << setw(2) << setfill(' ') << item_list[ion[2]] << "│";
+			gotoxy(x, y + 4 + 1);
+			cout <<  setiosflags(ios::left) << setw(11) << setfill(' ') << item_name[ion[2]] << " X " << setw(5) << setfill(' ') << item_list[ion[2]] ;
 			setColor();
 		}
 		else if (yp == 3)
 		{
 			setColor(BLACK, LIGHTGRAY);
-			gotoxy(x, y);
-			cout << "│ " << setiosflags(ios::left) << setw(9) << setfill(' ') << item_name[ion[3]] << " X " << setw(2) << setfill(' ') << item_list[ion[3]] << "│";
+			gotoxy(x, y + 6 + 1);
+			cout <<  setiosflags(ios::left) << setw(11) << setfill(' ') << item_name[ion[3]] << " X " << setw(5) << setfill(' ') << item_list[ion[3]] ;
 			setColor();
 		}
 		else if (yp == 4)
 		{
 			setColor(BLACK, LIGHTGRAY);
-			gotoxy(x, y);
-			cout << "│ " << setiosflags(ios::left) << setw(9) << setfill(' ') << item_name[ion[4]] << " X " << setw(2) << setfill(' ') << item_list[ion[4]] << "│";
+			gotoxy(x, y + 8 + 1);
+			cout <<  setiosflags(ios::left) << setw(11) << setfill(' ') << item_name[ion[4]] << " X " << setw(5) << setfill(' ') << item_list[ion[4]] ;
 			setColor();
 		}
 		else if (yp == 5)
 		{
 			setColor(BLACK, LIGHTGRAY);
-			gotoxy(x, y);
-			cout << "│ " << setiosflags(ios::left) << setw(9) << setfill(' ') << item_name[ion[5]] << " X " << setw(2) << setfill(' ') << item_list[ion[5]] << "│";
+			gotoxy(x, y + 10 + 1);
+			cout <<  setiosflags(ios::left) << setw(11) << setfill(' ') << item_name[ion[5]] << " X " << setw(5) << setfill(' ') << item_list[ion[5]] ;
 			setColor();
 		}
 		else if (yp == 6)
 		{
 			setColor(BLACK, LIGHTGRAY);
-			gotoxy(x, y);
-			cout << "│ " << setiosflags(ios::left) << setw(9) << setfill(' ') << item_name[ion[6]] << " X " << setw(2) << setfill(' ') << item_list[ion[6]] << "│";
+			gotoxy(x, y + 12 + 1);
+			cout <<  setiosflags(ios::left) << setw(11) << setfill(' ') << item_name[ion[6]] << " X " << setw(5) << setfill(' ') << item_list[ion[6]] ;
 			setColor();
 		}
 		ClearReadBuff();
@@ -512,4 +526,8 @@ void Player::item_mount(){
 		}
 	}
 	//여기에 메뉴로 돌아가는걸 넣어야 합니다.
+}
+void Player::equipped()
+{
+
 }
