@@ -42,6 +42,7 @@ public:
 	int beatenDamage(int dmg);// 받을 데미지 계산
 	int HealHP(int hp);// 회복할 hp계산
 	int HealAP(int ap);//회복할 ap계산
+	int getMaxHp() const { return HP; }
 	void Getexp(int pexp);//exp계산
 	char name[NAME_LEN];
 	int sk_list[SKILL_NUM];

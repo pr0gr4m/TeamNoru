@@ -198,6 +198,10 @@ void Player::statuschange(){//gotoxy넣고 좌표조정부탁드립니다.
 						gotoxy(90, 15); cout << "┌────────────────┐";
 						gotoxy(90, 16); cout << "│남은 스테이터스포인트가 없습니다│";
 						gotoxy(90, 17); cout << "└────────────────┘";
+						Delay(200);
+						gotoxy(90, 15); cout << "                                    ";
+						gotoxy(90, 16); cout << "                                    ";
+						gotoxy(90, 17); cout << "                                    ";
 					}
 					else
 					{
@@ -212,6 +216,10 @@ void Player::statuschange(){//gotoxy넣고 좌표조정부탁드립니다.
 						gotoxy(90, 15); cout << "┌────────────────┐";
 						gotoxy(90, 16); cout << "│남은 스테이터스포인트가 없습니다│";
 						gotoxy(90, 17); cout << "└────────────────┘";
+						Delay(200);
+						gotoxy(90, 15); cout << "                                    ";
+						gotoxy(90, 16); cout << "                                    ";
+						gotoxy(90, 17); cout << "                                    ";
 					}
 					else
 					{
@@ -226,6 +234,10 @@ void Player::statuschange(){//gotoxy넣고 좌표조정부탁드립니다.
 						gotoxy(90, 15); cout << "┌────────────────┐";
 						gotoxy(90, 16); cout << "│남은 스테이터스포인트가 없습니다│";
 						gotoxy(90, 17); cout << "└────────────────┘";
+						Delay(200);
+						gotoxy(90, 15); cout << "                                    ";
+						gotoxy(90, 16); cout << "                                    ";
+						gotoxy(90, 17); cout << "                                    ";
 					}
 					else
 					{
@@ -240,6 +252,10 @@ void Player::statuschange(){//gotoxy넣고 좌표조정부탁드립니다.
 						gotoxy(90, 15); cout << "┌────────────────┐";
 						gotoxy(90, 16); cout << "│남은 스테이터스포인트가 없습니다│";
 						gotoxy(90, 17); cout << "└────────────────┘";
+						Delay(200);
+						gotoxy(90, 15); cout << "                                    ";
+						gotoxy(90, 16); cout << "                                    ";
+						gotoxy(90, 17); cout << "                                    ";
 					}
 					else
 					{
@@ -324,13 +340,13 @@ void Player::statuschange(){//gotoxy넣고 좌표조정부탁드립니다.
 						gotoxy(90, 16); cout << "                                    ";
 						gotoxy(90, 17); cout << "                                    ";
 						gotoxy(90, 18); cout << "                                    ";
-						gotoxy(90, 15); cout << "┌─────────┐";
-						gotoxy(90, 16); cout << "│종료를 취소합니다 │";
-						gotoxy(90, 17); cout << "└─────────┘";
-						_sleep(200);
-						gotoxy(90, 15); cout << "                                    ";
-						gotoxy(90, 16); cout << "                                    ";
-						gotoxy(90, 17); cout << "                                    ";
+						gotoxy(95, 15); cout << "┌─────────┐";
+						gotoxy(95, 16); cout << "│종료를 취소합니다 │";
+						gotoxy(95, 17); cout << "└─────────┘";
+						Delay(500);
+						gotoxy(95, 15); cout << "                                    ";
+						gotoxy(95, 16); cout << "                                    ";
+						gotoxy(95, 17); cout << "                                    ";
 						break;
 					}
 				}
@@ -357,6 +373,10 @@ void Player::Lvup(){//좌표조정필요
 	gotoxy(10, 32); cout << "└──────────┘";
 	ClearReadBuff();
 	getKey();//아무거나 넣으면 되게 해놓은거에요 바꾸셔도 됩니다.
+	Delay(200);
+	gotoxy(10, 30); cout << "                                 ";
+	gotoxy(10, 31); cout << "                                 ";
+	gotoxy(10, 32); cout << "                                 ";
 	Lv++;
 	nexp -= exp;
 	exp *= 2;

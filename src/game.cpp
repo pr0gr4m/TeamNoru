@@ -5,10 +5,12 @@
 #include "game.h"
 #include "monster.h"
 #include "menu.h"
+#include "npc.h"
 
 static int nx = 1, ny = 1;
-static int nMove = 0;
 static int nStage = 0;
+
+NPC1 n1;
 
 void gameScreen(void)
 {
@@ -110,6 +112,12 @@ void Move(int dir)
 		}
 		else if (nxt == 4)
 		{
+			if (nStage == 0)
+			{
+				// 첫 번째 맵의 5번째 줄에 있는 npc
+				if (ny + dy == 5)
+					n1.Dialogue();
+			}
 			// npc와 대화
 			return;
 		}
@@ -132,7 +140,7 @@ void Move(int dir)
 			ny += dy;
 			map[nStage][ny][nx] = 9;
 			gotoxy(nx * 2 + 2, ny);
-			std::cout << "＠";
+			std::cout << "Ｐ";
 			if (nStage != 0 && !RandInt(5))
 			{
 				LowMonster du(1, 20, DEFN);
@@ -142,15 +150,6 @@ void Move(int dir)
 				clrscr();
 				mapDraw(nStage);
 				// 10분의 1 확률로 전투
-			}
-			// 움직임
-			if (++nMove > 5)
-			{
-				nMove = 0;
-				// 레벨업 표시 지움
-				gotoxy(9, 30); std::cout << "                          ";
-				gotoxy(9, 31); std::cout << "                          ";
-				gotoxy(9, 32); std::cout << "                          ";
 			}
 		}
 	}
