@@ -14,6 +14,7 @@ public:
 	void Battlelog(const char* Format, ...);
 	int BattleMenu();
 	bool Run();
+	void GAMEOVER();
 private:
 	char* Log[6];
 	int m_logcounter = 0;

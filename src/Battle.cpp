@@ -50,7 +50,17 @@ void Battle::BattleSystem() {
 			if (isCheck)
 				break;
 		}
+		if (monster.isDie()) {
+			Battlelog("%y%s%w은/는 %r%s%w의 전투에서 승리했다!",p.name,monster.name);
+			p.Getexp(monster.Exp());
+			Battlelog("%y%s%w은/는 %r%d%w의 경험치를 얻었다!",p.name,monster.Exp());
+			return;
+		}
 		AIBattle();
+		if (p.nHp <= 0) {
+			Battlelog("%r%s은/는 패배했다.....%w",p.name);
+			GAMEOVER();
+		}
 	}
 }
 
@@ -122,13 +132,12 @@ bool Battle::ShowInventory() {
 				//아이템 사용
 				if (p.item_list[inp] > 0) {
 					Battlelog("%y%s%w은/는 %r%s%w을/를 사용했다!", p.name, item_name[inp]);
-					//아이템 사용 함수 실행
+					
 					p.item_list[inp]--;
 					return true;
 				}
 				else {
-					_beep(523, 200);
-					_beep(523, 200);
+					return false;
 				}
 			}
 	}
@@ -175,7 +184,7 @@ bool Battle::ShowSkills() {
 			}
 		}
 		int damage = 0;
-		if (p.nAP < 1/*스킬 사용 AP보다 낮다면*/) {
+		if (p.nAP < 1/*AP 사용*/) {
 			return false;
 			Battlelog("AP가 부족합니다!");
 		}
@@ -231,7 +240,7 @@ void Battle::AIBattle(){
 			for (int i = 0; i < SKILL_NUM; i++) {
 				if (monster.sk_list[i]) {//스킬 있을때
 					if (monster.getAP() >1 ) {//스킬사용ap가 현재AP보다 높으면
-						int damage = 0;
+						int damage = monster.sk_list[i];
 						Battlelog("%y%s%w은/는%y%s%w을/를 사용했다!", monster.name, monster.sk_list[i]);
 						Battlelog("%y%s%w은/는 %r%d%w의 데미지를 입었다!", p.name, damage);
 						p.beatenDamage(damage);
@@ -344,4 +353,7 @@ int Battle::BattleMenu() {
 			return (int)(num-48);
 		}
 	}
+}
+void Battle::GAMEOVER() {
+	exit(100);
 }
