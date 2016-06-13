@@ -46,6 +46,8 @@ public:
 	int getAP() const { return AP; }
 	// 최대 HP 반환
 	int getMAXHP() const { return MAXHP; }
+	// AP 깎임
+	void subAP(int cost) { AP -= cost; }
 	// 스킬 리스트
 	int sk_list[SKILL_NUM];
 	// 이름

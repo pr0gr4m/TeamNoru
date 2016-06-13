@@ -11,9 +11,9 @@ Monster::Monster(int lev, int val, short type)
 {
 	int base = level / 10 + 1;
 	MAXHP = HP = base * 30 + level * 10;
-	AP = base * 10 + level * 5;
-	DMG = type == AGGR ? val : base * 20 + level * 5;
-	DFS = type == DEFN ? val : base * 10 + level * 3;
+	AP = base * 15 + level * 5;
+	DMG = type == AGGR ? val : base * 25 + level * 10;
+	DFS = type == DEFN ? val : base * 5 + level * 3;
 	for (int i = 0; i < SKILL_NUM; i++)
 		sk_list[i] = 0;
 }
@@ -39,7 +39,7 @@ int Monster::HealHP(int hp)
 	return HP;
 }
 
-// 데미지 입는 수치를 받아서 남은 HP를 반환
+// 데미지 입는 수치를 받아서 받은 데미지를 반환
 int Monster::beatenDamage(int dmg)
 {
 	int calDmg = dmg - defensivePower();
@@ -47,7 +47,7 @@ int Monster::beatenDamage(int dmg)
 		HP = 0;
 	else
 		HP -= calDmg;
-	return HP;
+	return calDmg;
 }
 
 // 상태 출력 임시 함수

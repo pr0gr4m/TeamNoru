@@ -43,12 +43,11 @@ int main()
 {
 	initSkill();
 	initItem();
-	//for (int i = 0; i < 15; i++)
-		p.Lvup();
-
-	//p.item_list[0] = 1;
-	//p.item_list[5] = 2;
-	//p.item_list[3] = 1;
+	p.Lvup();
+	SetRand();
+	p.item_list[0] = 1;
+	p.item_list[5] = 2;
+	p.item_list[3] = 1;
 	p.sk_list[1] = 1;
 	p.sk_list[9] = 1;
 	gameScreen();
