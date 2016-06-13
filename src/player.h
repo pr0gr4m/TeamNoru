@@ -49,6 +49,7 @@ public:
 	void view_itemlist();
 	void item_mount();
 	void equipped();
+	void view_skills();
 };
 
 extern Player p;
