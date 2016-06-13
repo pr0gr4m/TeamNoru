@@ -28,6 +28,7 @@ void Battle::BattleSystem() {
 			case 1:
 				damage = p.attackDamage();
 				Battlelog("이얍! 평타!");
+				monsterbeaten();
 				Battlelog("%y%s%w은/는 %r%d%w 데미지를 %y%s%w에게 주었다!", p.name, damage, monster.name);
 				monster.beatenDamage(damage);
 				isCheck = true;
@@ -185,12 +186,19 @@ bool Battle::ShowSkills() {
 		}
 		int damage = 0;
 		if (p.nAP < 1/*AP 사용*/) {
-			return false;
 			Battlelog("AP가 부족합니다!");
+			return false;
 		}
-		//스킬 사용 함수[num];
+		//damage=스킬[num];
 		//스킬 AP 소모
 		Battlelog("%y%s%w은/는 %y%s%w을/를 사용했다!",p.name,sk_name[num]);
+		if (damage) {
+			monsterbeaten();
+			Battlelog("%y%s%w은/는 %r%d%w의 데미지를 %y%s%w에게 주었다!", p.name, damage, monster.name);
+		}
+		else {
+			Battlelog("%y%s%w은/는 몸을 추스렸다!", p.name);
+		}
 		return true;
 	}
 	
@@ -232,7 +240,8 @@ void Battle::AIBattle(){
 			int monsterdmg = monster.attackDamage();
 			//몬스터 평타
 			p.beatenDamage(monsterdmg);
-			Battlelog("/*PlayerName*/은/는 %r%d%w의 데미지를 입었다!", monsterdmg);
+			Battlelog("%y%s%w은/는 %y%s%w을/를 공격했다!",monster.name,p.name);
+			Battlelog("%y%s%w은/는 %r%d%w의 데미지를 입었다!",p.name, monsterdmg);
 			break;
 		}
 		else {
@@ -241,10 +250,16 @@ void Battle::AIBattle(){
 				if (monster.sk_list[i]) {//스킬 있을때
 					if (monster.getAP() >1 ) {//스킬사용ap가 현재AP보다 높으면
 						int damage = monster.sk_list[i];
-						Battlelog("%y%s%w은/는%y%s%w을/를 사용했다!", monster.name, monster.sk_list[i]);
-						Battlelog("%y%s%w은/는 %r%d%w의 데미지를 입었다!", p.name, damage);
-						p.beatenDamage(damage);
-						break;
+						Battlelog("%y%s%w은/는%y%s%w을/를 사용했다!", monster.name, sk_name[i]);
+						if (damage > 0) {
+							playerbeaten();
+							Battlelog("%y%s%w은/는 %r%d%w의 데미지를 입었다!", p.name, damage);
+							p.beatenDamage(damage);
+							break;
+						}
+						else {
+							Battlelog("%y%s%w은/는 몸을 추스렸다!", monster.name);
+						}
 					}
 				}
 			}
@@ -356,4 +371,36 @@ int Battle::BattleMenu() {
 }
 void Battle::GAMEOVER() {
 	exit(100);
+}
+
+void Battle::playerbeaten(){
+	system("color 4F");
+	_beep(532, 150);
+	_sleep(100);
+	system("color 0F");
+	_sleep(100);
+	system("color 4F");
+	_beep(532, 250);
+	_sleep(100);
+	system("color 0F");
+	_sleep(100);
+}
+void Battle::monsterbeaten(){
+	setColor(RED);
+	gotoxy(0, 0);
+	monster.printASCII();
+	_beep(532, 200);
+	_sleep(100);
+	setColor();
+	gotoxy(0, 0);
+	monster.printASCII();	
+	setColor(RED);
+	gotoxy(0, 0);
+	monster.printASCII();
+	_beep(532, 200);
+	_sleep(100);
+	setColor();
+	gotoxy(0, 0);
+	monster.printASCII();
+	
 }

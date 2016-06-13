@@ -15,6 +15,8 @@ public:
 	int BattleMenu();
 	bool Run();
 	void GAMEOVER();
+	void playerbeaten();
+	void monsterbeaten();
 private:
 	char* Log[6];
 	int m_logcounter = 0;
