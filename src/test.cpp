@@ -44,6 +44,8 @@ int main()
 	initSkill();
 	initItem();
 	p.Lvup();
+	p.item_list[0] = 1;
+	p.item_list[5] = 2;
 	gameScreen();
 	return 0;
 }

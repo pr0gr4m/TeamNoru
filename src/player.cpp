@@ -5,11 +5,18 @@
 #include <cstring>
 #include "lib.h"
 #include <iomanip>
+#include "menu.h"
+#include "item.h"
 using std::cout;
 using std::cin;
 using std::setfill;
 using std::setw;
 using std::endl;
+using std::setiosflags;
+using std::ios;
+extern Skill * skList[10];
+extern ITEM * itList[7];
+
 Player::Player()
 {
 	// 로드용 디폴트 생성자
@@ -76,7 +83,7 @@ bool Player::critical(){
 
 int Player::attackDamage()
 {
-	int dmg = pattack();//+itemattack;
+	int dmg = pattack()+(weapon->Amount());
 	if (critical())
 		return dmg * 2;
 	else
@@ -84,7 +91,7 @@ int Player::attackDamage()
 }
 
 int Player::beatenDamage(int dmg){
-	int defensivePower = pdefense();//+itemdefense;
+	int defensivePower = pdefense()+ (armor->Amount());
 	int calDmg = dmg - defensivePower;
 	if (nHp <= calDmg)
 		nHp = 0;
@@ -198,10 +205,6 @@ void Player::statuschange(){//gotoxy넣고 좌표조정부탁드립니다.
 						gotoxy(90, 15); cout << "┌────────────────┐";
 						gotoxy(90, 16); cout << "│남은 스테이터스포인트가 없습니다│";
 						gotoxy(90, 17); cout << "└────────────────┘";
-						Delay(200);
-						gotoxy(90, 15); cout << "                                    ";
-						gotoxy(90, 16); cout << "                                    ";
-						gotoxy(90, 17); cout << "                                    ";
 					}
 					else
 					{
@@ -216,10 +219,6 @@ void Player::statuschange(){//gotoxy넣고 좌표조정부탁드립니다.
 						gotoxy(90, 15); cout << "┌────────────────┐";
 						gotoxy(90, 16); cout << "│남은 스테이터스포인트가 없습니다│";
 						gotoxy(90, 17); cout << "└────────────────┘";
-						Delay(200);
-						gotoxy(90, 15); cout << "                                    ";
-						gotoxy(90, 16); cout << "                                    ";
-						gotoxy(90, 17); cout << "                                    ";
 					}
 					else
 					{
@@ -234,10 +233,6 @@ void Player::statuschange(){//gotoxy넣고 좌표조정부탁드립니다.
 						gotoxy(90, 15); cout << "┌────────────────┐";
 						gotoxy(90, 16); cout << "│남은 스테이터스포인트가 없습니다│";
 						gotoxy(90, 17); cout << "└────────────────┘";
-						Delay(200);
-						gotoxy(90, 15); cout << "                                    ";
-						gotoxy(90, 16); cout << "                                    ";
-						gotoxy(90, 17); cout << "                                    ";
 					}
 					else
 					{
@@ -252,10 +247,6 @@ void Player::statuschange(){//gotoxy넣고 좌표조정부탁드립니다.
 						gotoxy(90, 15); cout << "┌────────────────┐";
 						gotoxy(90, 16); cout << "│남은 스테이터스포인트가 없습니다│";
 						gotoxy(90, 17); cout << "└────────────────┘";
-						Delay(200);
-						gotoxy(90, 15); cout << "                                    ";
-						gotoxy(90, 16); cout << "                                    ";
-						gotoxy(90, 17); cout << "                                    ";
 					}
 					else
 					{
@@ -340,13 +331,13 @@ void Player::statuschange(){//gotoxy넣고 좌표조정부탁드립니다.
 						gotoxy(90, 16); cout << "                                    ";
 						gotoxy(90, 17); cout << "                                    ";
 						gotoxy(90, 18); cout << "                                    ";
-						gotoxy(95, 15); cout << "┌─────────┐";
-						gotoxy(95, 16); cout << "│종료를 취소합니다 │";
-						gotoxy(95, 17); cout << "└─────────┘";
-						Delay(500);
-						gotoxy(95, 15); cout << "                                    ";
-						gotoxy(95, 16); cout << "                                    ";
-						gotoxy(95, 17); cout << "                                    ";
+						gotoxy(90, 15); cout << "┌─────────┐";
+						gotoxy(90, 16); cout << "│종료를 취소합니다 │";
+						gotoxy(90, 17); cout << "└─────────┘";
+						_sleep(200);
+						gotoxy(90, 15); cout << "                                    ";
+						gotoxy(90, 16); cout << "                                    ";
+						gotoxy(90, 17); cout << "                                    ";
 						break;
 					}
 				}
@@ -373,13 +364,170 @@ void Player::Lvup(){//좌표조정필요
 	gotoxy(10, 32); cout << "└──────────┘";
 	ClearReadBuff();
 	getKey();//아무거나 넣으면 되게 해놓은거에요 바꾸셔도 됩니다.
-	Delay(200);
-	gotoxy(10, 30); cout << "                                 ";
-	gotoxy(10, 31); cout << "                                 ";
-	gotoxy(10, 32); cout << "                                 ";
 	Lv++;
 	nexp -= exp;
 	exp *= 2;
 	sp += 5;
 	// 스탯은 메뉴에서 찍음
+}
+void Player::view_itemlist(){
+	int x = 92, y = 3;
+	int i=1;
+	gotoxy(x, y);cout << "┌──────────────┐";
+	gotoxy(x, y+1); cout << "│                            │";
+	gotoxy(x, y+2); cout << "│                            │";
+	gotoxy(x, y+3); cout << "│                            │";
+	gotoxy(x, y+4); cout << "│                            │";
+	gotoxy(x, y+5); cout << "│                            │";
+	gotoxy(x, y+6); cout << "│                            │";
+	gotoxy(x, y+7); cout << "│                            │";
+	gotoxy(x, y+8); cout << "│                            │";
+	gotoxy(x, y+9); cout << "│                            │";
+	gotoxy(x, y + 10); cout << "│                            │";
+	gotoxy(x, y + 11); cout << "│                            │";
+	gotoxy(x, y + 12); cout << "│                            │";
+	gotoxy(x, y + 13); cout << "│                            │";
+	gotoxy(x, y+14); cout << "└──────────────┘";
+	if (item_list[0] != 0)
+	{
+		gotoxy(x+3, y +1 +i); 
+		cout <<  setiosflags(ios::left) << setw(11) << setfill(' ') << item_name[0] << " X " << setw(5) << setfill(' ') << item_list[0] ;
+		i+=2;
+	}
+	if (item_list[1] != 0)
+	{
+		gotoxy(x+3, y+1 +i);
+		cout <<  setiosflags(ios::left) << setw(11) << setfill(' ') << item_name[1] << " X " << setw(5) << setfill(' ') << item_list[1] ;
+		i+=2;
+	}
+	if (item_list[2] != 0)
+	{
+		gotoxy(x + 3, y + 1 + i);
+		cout <<  setiosflags(ios::left) << setw(11) << setfill(' ') << item_name[2] << " X " << setw(5) << setfill(' ') << item_list[2] ;
+		i+=2;
+	}
+	if (item_list[3] != 0)
+	{
+		gotoxy(x + 3, y + 1 + i);
+		cout <<  setiosflags(ios::left) << setw(11) << setfill(' ') << item_name[3] << " X " << setw(5) << setfill(' ') << item_list[3] ;
+		i+=2;
+	}
+	if (item_list[4] != 0)
+	{
+		gotoxy(x + 3, y + 1 + i);
+		cout <<  setiosflags(ios::left) << setw(11) << setfill(' ') << item_name[4] << " X " << setw(5) << setfill(' ') << item_list[4] ;
+		i+=2;
+	}
+	if (item_list[5] != 0)
+	{
+		gotoxy(x + 3, y + 1 + i);
+		cout <<  setiosflags(ios::left) << setw(11) << setfill(' ') << item_name[5] << " X " << setw(5) << setfill(' ') << item_list[5] ;
+		i+=2;
+	}
+	if (item_list[6] != 0)
+	{
+		gotoxy(x + 3, y + 1 + i);
+		cout <<  setiosflags(ios::left) << setw(11) << setfill(' ') << item_name[6] << " X " << setw(5) << setfill(' ') << item_list[6] ;
+		i+=2;
+	}
+	
+}
+void Player::item_mount(){
+	int yp = 0, i, j = 0;
+	int x = 95, y = 4;
+	int ion[7];
+	for (i = 0; i < ITEM_NUM; i++)
+	{
+		if (item_list[i] != 0)
+		{
+			ion[j] = i;
+			j++;
+		}
+	}
+	while (true)
+	{
+		view_itemlist();
+		if (yp == 0)
+		{
+			setColor(BLACK, LIGHTGRAY);
+			gotoxy(x, y + 1);
+			cout <<  setiosflags(ios::left) << setw(11) << setfill(' ') << item_name[ion[0]] << " X " << setw(5) << setfill(' ') << item_list[ion[0]] ;
+			setColor();
+		}
+		else if (yp == 1)
+		{
+			setColor(BLACK, LIGHTGRAY);
+			gotoxy(x, y + 2 + 1);
+			cout <<  setiosflags(ios::left) << setw(11) << setfill(' ') << item_name[ion[1]] << " X " << setw(5) << setfill(' ') << item_list[ion[1]] ;
+			setColor();
+		}
+		else if (yp == 2)
+		{
+			setColor(BLACK, LIGHTGRAY);
+			gotoxy(x, y + 4 + 1);
+			cout <<  setiosflags(ios::left) << setw(11) << setfill(' ') << item_name[ion[2]] << " X " << setw(5) << setfill(' ') << item_list[ion[2]] ;
+			setColor();
+		}
+		else if (yp == 3)
+		{
+			setColor(BLACK, LIGHTGRAY);
+			gotoxy(x, y + 6 + 1);
+			cout <<  setiosflags(ios::left) << setw(11) << setfill(' ') << item_name[ion[3]] << " X " << setw(5) << setfill(' ') << item_list[ion[3]] ;
+			setColor();
+		}
+		else if (yp == 4)
+		{
+			setColor(BLACK, LIGHTGRAY);
+			gotoxy(x, y + 8 + 1);
+			cout <<  setiosflags(ios::left) << setw(11) << setfill(' ') << item_name[ion[4]] << " X " << setw(5) << setfill(' ') << item_list[ion[4]] ;
+			setColor();
+		}
+		else if (yp == 5)
+		{
+			setColor(BLACK, LIGHTGRAY);
+			gotoxy(x, y + 10 + 1);
+			cout <<  setiosflags(ios::left) << setw(11) << setfill(' ') << item_name[ion[5]] << " X " << setw(5) << setfill(' ') << item_list[ion[5]] ;
+			setColor();
+		}
+		else if (yp == 6)
+		{
+			setColor(BLACK, LIGHTGRAY);
+			gotoxy(x, y + 12 + 1);
+			cout <<  setiosflags(ios::left) << setw(11) << setfill(' ') << item_name[ion[6]] << " X " << setw(5) << setfill(' ') << item_list[ion[6]] ;
+			setColor();
+		}
+		ClearReadBuff();
+		int ch = getKey();
+		switch (ch)
+		{
+		case UP:case 'w' : case 'W':
+			yp--;
+			if (yp < 0)
+				yp = 0;
+			break;
+		case DOWN: case 's': case 'S':
+			yp++;
+			if (yp > j)
+				yp = j;
+			break;
+		case 10: case 13:
+			if (ion[yp] == 0 || ion[yp] == 1)
+				weapon = (Weapon*)itList[yp];
+			else if (ion[yp] == 2 || ion[yp] == 3)
+				armor = (Armor *)itList[yp];
+			/*else
+				//포션*/
+				break;
+		
+		case 'b': case 'B':
+			return;	// 메뉴로 돌아감
+		default:
+			break;
+		}
+	}
+	//여기에 메뉴로 돌아가는걸 넣어야 합니다.
+}
+void Player::equipped()
+{
+
 }

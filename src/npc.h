@@ -15,4 +15,14 @@ public:
 	void Dialogue();
 };
 
+class NPC2
+{
+private:
+	char str[STR_NUM][MAX_LEN];
+	int flag;
+public:
+	NPC2();
+	void Dialogue();
+};
+
 #endif

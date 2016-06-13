@@ -11,6 +11,7 @@ static int nx = 1, ny = 1;
 static int nStage = 0;
 
 NPC1 n1;
+NPC2 n2;
 
 void gameScreen(void)
 {
@@ -85,7 +86,11 @@ void Move(int dir)
 				nx = 37, ny = 1;
 			else if (nStage == 6)
 				nx = 19, ny = 1;
+			else if (nStage == 7)
+				nx = 5, ny = 2;
 			nStage--;
+			if (nStage == 6)
+				nStage = 3;
 			map[nStage][ny][nx] = 9;
 			clrscr();
 			mapDraw(nStage);
@@ -117,6 +122,29 @@ void Move(int dir)
 				// 첫 번째 맵의 5번째 줄에 있는 npc
 				if (ny + dy == 5)
 					n1.Dialogue();
+				if (ny + dy == 14)
+					n2.Dialogue();
+			}
+			else if (nStage == 1)
+			{
+				n2.Dialogue();
+				map[1][21][34] = 0;
+				gotoxy(70, 21);
+				std::cout << "  ";
+				map[0][14][4] = 4;
+			}
+			else if (nStage == 3)
+			{
+				if (ny + dy == 2)
+				{	// 숨겨진 맵으로
+					n1.Dialogue();	// 다른 npc로 변경
+					map[nStage][ny][nx] = 0;
+					nx = 38, ny = 3;
+					nStage = 7;
+					map[nStage][ny][nx] = 9;
+					clrscr();
+					mapDraw(nStage);
+				}
 			}
 			// npc와 대화
 			return;
@@ -141,7 +169,7 @@ void Move(int dir)
 			map[nStage][ny][nx] = 9;
 			gotoxy(nx * 2 + 2, ny);
 			std::cout << "Ｐ";
-			if (nStage != 0 && !RandInt(5))
+			if (nStage != 0 && !RandInt(10))
 			{
 				LowMonster du(1, 20, DEFN);
 				clrscr();

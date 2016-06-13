@@ -79,6 +79,8 @@ void chooseMenu()
 			case 10: case 13:
 				flag = 1;
 				break;
+			case 'b': case 'B':
+				return;
 			}
 			if (flag)
 				break;
@@ -92,9 +94,12 @@ void chooseMenu()
 			// 스탯 창
 			break;
 		case WITEM:
+			eraseMenu();
 			// 장착 아이템 보여줌
 			break;
 		case HITEM:
+			eraseMenu();
+			p.item_mount();
 			// 소유 아이템 보여줌
 			break;
 		case HSKILL:
@@ -105,7 +110,7 @@ void chooseMenu()
 			break;
 		case EXIT:
 			// 끝내기
-			return;
+			break;
 		}
 		ClearReadBuff();
 	}
