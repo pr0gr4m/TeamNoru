@@ -1,3 +1,9 @@
+/*
+ * 파일 : npc.cpp
+ * 내용 : NPC 클래스 구현
+ * 제작 : 최세일
+ */
+
 #include <iostream>
 #include <cstring>
 #include "npc.h"

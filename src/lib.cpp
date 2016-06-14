@@ -1,3 +1,9 @@
+/*
+ * 파일 : lib.cpp
+ * 내용 : 라이브러리
+ * 제작 : 박강민
+ */
+
 #include <iostream>
 #include <Windows.h>
 #include <conio.h>

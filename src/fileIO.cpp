@@ -1,3 +1,9 @@
+/*
+ * 파일 : fileIO.cpp
+ * 내용 : 파일 입출력
+ * 제작 : 박강민
+ */
+
 #include "player.h"
 #include <fstream>
 #include <iostream>

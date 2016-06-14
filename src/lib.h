@@ -1,3 +1,9 @@
+/*
+ * 파일 : lib.h
+ * 내용 : 라이브러리 함수 선언 및 정의
+ * 제작 : 박강민
+ */
+
 #pragma once
 #ifndef _LIB_H
 #define _LIB_H

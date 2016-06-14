@@ -1,3 +1,9 @@
+/*
+ * 파일 : item.h
+ * 내용 : 아이템 클래스 선언
+ * 제작 : 최세일
+ */
+
 #pragma once
 #ifndef _ITEM_H
 #define _ITEM_H	//아이템의 요소 (수치, 착용레벨제한)
@@ -16,7 +22,6 @@ public:
 	virtual int Amount() const = 0;
 	short Type() const { return type; }
 	short Level() const { return level; }
-protected:
 	char name[NAME_LEN];
 private:
 	short type;

@@ -1,3 +1,9 @@
+/*
+ * 파일 : player.cpp
+ * 내용 : 플레이어 클래스 선언
+ * 제작 : 김민주
+ */
+
 #pragma once
 #ifndef _PLAYER_H
 #define _PLAYER_H

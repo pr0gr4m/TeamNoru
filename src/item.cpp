@@ -1,3 +1,9 @@
+/*
+ * 파일 : item.cpp
+ * 내용 : 아이템 클래스 구현
+ * 제작 : 최세일
+ */
+
 #include "item.h"
 #include "lib.h"
 #include <cstring>

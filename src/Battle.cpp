@@ -1,3 +1,9 @@
+/*
+ * 파일 : Battle.cpp
+ * 내용 : 전투 인터페이스 구현
+ * 제작 : 전성욱
+ */
+
 #include "Battle.h"
 #include "player.h"
 #include "skill.h"
@@ -167,7 +173,7 @@ bool Battle::ShowSkills() {
 		gotoxy(20, 11);
 		cout << "│                                                                                    │";
 		gotoxy(25, 11);
-		cout << p.name << "      HP   " << p.nHp << " / " << p.getMaxHp() << "      AP   " << p.nAP << " / " << p.getMaxHp();
+		cout << p.name << "      HP   " << p.nHp << " / " << p.getMaxHp() << "      AP   " << p.nAP << " / " << p.getMaxAp();
 		gotoxy(20, 12);
 		cout << "├──────────────────────────────────────────┤";
 		gotoxy(20, 13);
@@ -211,6 +217,7 @@ bool Battle::ShowSkills() {
 			}
 		}
 
+	SKILL_INPUT:
 		int input = getKey();
 		if (input == 'g' || input == 'G')
 		{
@@ -222,6 +229,8 @@ bool Battle::ShowSkills() {
 			return false;
 		}
 		input--;
+		if (input < 0 || input > 9 || !p.sk_list[input])
+			goto SKILL_INPUT;
 
 		if (p.nAP < skList[input]->Cost())
 		{	// ap 부족
@@ -395,31 +404,27 @@ void Battle::GAMEOVER() {
 
 void Battle::playerbeaten(){
 	system("color 4F");
-	_beep(532, 150);
-	_sleep(100);
+	Delay(100);
 	system("color 0F");
-	_sleep(100);
+	Delay(100);
 	system("color 4F");
-	_beep(532, 250);
-	_sleep(100);
+	Delay(100);
 	system("color 0F");
-	_sleep(100);
+	Delay(100);
 }
 
 void Battle::monsterbeaten(){
 	setColor(RED);
 	gotoxy(0, 0);
 	monster.printASCII();
-	_beep(532, 200);
-	_sleep(100);
+	Delay(100);
 	setColor();
 	gotoxy(0, 0);
 	monster.printASCII();	
 	setColor(RED);
 	gotoxy(0, 0);
 	monster.printASCII();
-	_beep(532, 200);
-	_sleep(100);
+	Delay(100);
 	setColor();
 	gotoxy(0, 0);
 	monster.printASCII();

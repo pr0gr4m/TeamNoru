@@ -1,3 +1,9 @@
+/*
+ * 파일 : game.cpp
+ * 내용 : 게임 전반 알고리즘
+ * 제작 : 박강민
+ */
+
 #include <iostream>
 #include <conio.h>
 #include "map.h"
@@ -56,7 +62,6 @@ void gameScreen(void)
 void Move(int dir)
 {
 	int dx = 0, dy = 0;
-	int i, j;
 
 	switch (dir)
 	{
@@ -311,7 +316,7 @@ void Move(int dir)
 					}
 					else if (rand_mon == 2)
 					{
-						LowMonster m(nStage * (RandInt(3) + 1), nStage * 10, DEFN);
+						LowMonster m(nStage * (RandInt(3) + 1), nStage * 5, DEFN);
 						Battle b(m);
 						clrscr();
 						mapDraw(nStage);
@@ -345,7 +350,7 @@ void Move(int dir)
 					}
 					else if (rand_mon == 2)
 					{
-						HighMonster m(nStage * (RandInt(3) + 1), nStage * 20, DEFN);
+						HighMonster m(nStage * (RandInt(3) + 1), nStage * 15, DEFN);
 						Battle b(m);
 						clrscr();
 						mapDraw(nStage);

@@ -1,3 +1,9 @@
+/*
+ * 파일 : main.cpp
+ * 내용 : 메인 함수
+ * 버전 : 1.0
+ */
+
 #include <iostream>
 #include <ctime>
 #include "monster.h"

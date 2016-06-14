@@ -1,3 +1,9 @@
+/*
+ * 파일 : moster.cpp
+ * 내용 : 몬스터 클래스 구현
+ * 제작 : 박강민
+ */
+
 #include <iostream>
 #include <fstream>
 #include <cstring>
@@ -12,8 +18,8 @@ Monster::Monster(int lev, int val, short type)
 	int base = level / 10 + 1;
 	MAXHP = HP = base * 30 + level * 10;
 	AP = base * 15 + level * 5;
-	DMG = type == AGGR ? val : base * 15 + level * 5;
-	DFS = type == DEFN ? val : base * 5 + level * 3;
+	DMG = type == AGGR ? val : base * 10 + level * 3;
+	DFS = type == DEFN ? val : base * 5 + level * 2;
 	for (int i = 0; i < SKILL_NUM; i++)
 		sk_list[i] = 0;
 }

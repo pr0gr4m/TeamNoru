@@ -1,3 +1,9 @@
+/*
+ * 파일 : npc.h
+ * 내용 : NPC 클래스 선언
+ * 제작 : 최세일
+ */
+
 #pragma once
 #ifndef _NPC_H
 #define _NPC_H

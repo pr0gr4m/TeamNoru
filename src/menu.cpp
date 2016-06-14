@@ -1,3 +1,9 @@
+/*
+ * 파일 : menu.cpp
+ * 내용 : 메뉴 출력 및 알고리즘
+ * 제작 : 김민주, 박강민
+ */
+
 #include "lib.h"
 #include "menu.h"
 #include "player.h"

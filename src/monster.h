@@ -1,3 +1,9 @@
+/*
+ * 파일 : moster.h
+ * 내용 : 몬스터 클래스 선언
+ * 제작 : 박강민
+ */
+
 #pragma once
 #ifndef _MONSTER_H
 #define _MONSTER_H

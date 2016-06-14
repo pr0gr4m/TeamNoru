@@ -1,3 +1,9 @@
+/*
+ * 파일 : skill.cpp
+ * 내용 : 스킬 클래스 구현
+ * 제작 : 전성욱
+ */
+
 #include "skill.h"
 #include "lib.h"
 #include "player.h"

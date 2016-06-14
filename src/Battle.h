@@ -1,3 +1,9 @@
+/*
+ * 파일 : Battle.h
+ * 내용 : 전투 클래스 선언
+ * 제작 : 전성욱
+ */
+
 #pragma once
 #ifndef _BATTLE_H
 #define _BATTLE_H

@@ -1,3 +1,9 @@
+/*
+ * 파일 : skill.h
+ * 내용 : 스킬 클래스 선언
+ * 제작 : 전성욱, 박강민
+ */
+
 #pragma once
 #ifndef _SKILL_H
 #define _SKILL_H
