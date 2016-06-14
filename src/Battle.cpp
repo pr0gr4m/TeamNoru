@@ -279,6 +279,7 @@ void Battle::AIBattle(){
 	{
 		if (!RandInt(3)) 
 		{
+		NORMAL_ATTACK:
 			int monsterdmg = monster.attackDamage();
 			_gotoxy();
 			cout << monster.name << "은(는) " << p.name << " 을(를) 공격했다!";
@@ -323,7 +324,11 @@ void Battle::AIBattle(){
 					getKey();
 					break;
 				}
+				else
+					goto NORMAL_ATTACK;
 			}
+			else
+				goto NORMAL_ATTACK;
 		}
 	}
 }
@@ -336,8 +341,12 @@ bool Battle::Run() {
 		return true;
 	}
 	else
+	{
+		_gotoxy();
 		cout << "도망치는데 실패했다!";
-	return false;
+		getKey();
+		return false;
+	}
 }
 
 int Battle::BattleMenu() {

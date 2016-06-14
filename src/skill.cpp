@@ -24,7 +24,7 @@ Skill::Skill(const char *n, short t, short lev)
 // 데미지 : (100 * 스킬 레벨) * (1 ~ 1.2)
 int Skill::Amount(int tmp) const
 {
-	return (100 * level) * (RandDouble(0.2) + 1);
+	return (30 * level) * (RandDouble(0.2) + 1);
 }
 
 // 코스트 : 레벨 * 10

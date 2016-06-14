@@ -51,7 +51,7 @@ NPC2::NPC2()
 	: flag(0)
 {
 	strcpy(str[0], "던전 깊은 곳에 제 친구들이 있어요... 제발 구해주세요");
-	strcpy(str[1], "옛날에 하늘은 푸른색이었다고 해요");
+	strcpy(str[1], "맵에 보이는 ※는 아이템이랍니다");
 	strcpy(str[2], "마음껏 돌아다닐 수 있는 세상이 됬으면 좋겠어요");
 	strcpy(str[3], "포션을 먹으면 회복을 한답니다");
 	strcpy(str[4], "회복 스킬에 대해서 아시나요?");
@@ -113,8 +113,8 @@ NPC3::NPC3()	//힐러
 {
 	strcpy(str[0], "부상을 입은것 같군요. 제가 치료해 드릴게요");
 	strcpy(str[1], "스킬을 사용해 보세요. 몬스터가 순식간에 사라질 거에요");
-	strcpy(str[2], "몰아치기 스킬은 일반공격 데미지에 비례한답니다 ");
-	strcpy(str[3], "강타스킬은 레벨당 100의 데미지를 줄수 있다고 해요");
+	strcpy(str[2], "몰아치기라는 스킬의 존재를 아시나요 ");
+	strcpy(str[3], "구출된 아이들과 이야기를 나눠보세요");
 	strcpy(str[4], "이근처에 이상한 지역이 있다는 소문이 있어요.. 조심하세요");
 }
 
@@ -124,13 +124,14 @@ void NPC3::Dialogue()
 	gotoxy(5, 35);
 	cout << str[0];
 	getKey();
-	cout << str[tmp];
 	gotoxy(5, 36);
+	cout << str[tmp];
 	getKey();
 	gotoxy(5, 35);
 	cout << sp;
 	gotoxy(5, 36);
 	cout << sp;
+	p.HealHP(10000);
 }
 
 NPC4::NPC4()	//설명충2
@@ -140,39 +141,33 @@ NPC4::NPC4()	//설명충2
 	strcpy(str[1], "원한다면 데려다주지...");
 	strcpy(str[2], "사실 자네가 원하지 않다도 데려다줄 참이엿네");
 	strcpy(str[3], "숨겨진 장소로 어서 가지...");
-	strcpy(str[4], "아무때나 이장소로 돌아올수 있으니 걱정은 말게");
+	strcpy(str[4], "이 곳에서 나가면 다시는 돌아올 수 없다네");
 }
 
 void NPC4::Dialogue()
 {
 	if (flag == 0)
 	{
-		for (int i = 0; i < 3; i++)
+		for (int i = 0; i < 4; i++)
 		{
 			gotoxy(5, 34 + i);
 			cout << str[i];
 			getKey();
 		}
-		for (int i = 0; i < 3; i++)
+		for (int i = 0; i < 4; i++)
 		{
-			gotoxy(5, 35 + i);
+			gotoxy(5, 34 + i);
 			cout << sp;
 		}
 		flag = 1;
 	}
 	else
 	{
-		for (int i = 3; i < 5; i++)
-		{
-			gotoxy(5, 32 + i);
-			cout << str[i];
-			getKey();
-		}
-		for (int i = 0; i < 2; i++)
-		{
-			gotoxy(5, 35 + i);
-			cout << sp;
-		}
+		gotoxy(5, 35);
+		cout << str[4];
+		getKey();
+		gotoxy(5, 35);
+		cout << sp;
 	}
 }
 
@@ -181,7 +176,7 @@ NPC5::NPC5()
 {
 	strcpy(str[0], "구해주셔서 감사합니다... 다른 친구도 구해주세요");
 	strcpy(str[1], "과거엔 저도 당신과 같은 모험가였어요.");
-	strcpy(str[2], "어느날 갑자기 무릎에 총상을 입는 바람에...");
+	strcpy(str[2], "아이템 흉내를 내는 몬스터가 있다고 해요");
 	strcpy(str[3], "우리에게 희망이 있을까요?");
 	strcpy(str[4], "저희 아버지는 어디 계신 걸까요...");
 }
@@ -215,8 +210,8 @@ void NPC5::Dialogue()
 			if (!RandInt(3))
 			{	// 1/3 확률로
 				gotoxy(5, 35);
-				cout << "여기 빨간 포션을 하나 드릴게요! 잘 사용하세요";
-				p.item_list[4] += 1;
+				cout << "여기 파란 포션을 하나 드릴게요! 잘 사용하세요";
+				p.item_list[6] += 1;
 				getKey();
 				gotoxy(5, 35);
 				cout << sp;
@@ -276,8 +271,8 @@ void NPC6::Dialogue()
 			if (!RandInt(3))
 			{	// 1/3 확률로
 				gotoxy(5, 35);
-				cout << "여기 빨간 포션을 하나 드릴게요! 잘 사용하세요";
-				p.item_list[4] += 1;
+				cout << "여기 하얀 포션을 하나 드릴게요! 잘 사용하세요";
+				p.item_list[5] += 1;
 				getKey();
 				gotoxy(5, 35);
 				cout << sp;
