@@ -29,8 +29,11 @@ static const int BUF_LEN = 256;
 // 콘솔 화면에서 커서 x, y 좌표로 이동
 void gotoxy(int x, int y);
 
-// 콘솔 사이즈 200 * 60으로 변경
+// 콘솔 사이즈 140 * 52으로 변경
 void setConsoleSize(void);
+
+// 콘솔 사이즈 130 * 60으로 지정
+void bigConsoleSize(void);
 
 // 화면 지움
 void clrscr(void);

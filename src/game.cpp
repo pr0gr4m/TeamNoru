@@ -14,6 +14,7 @@
 #include "npc.h"
 #include "Battle.h"
 #include "player.h"
+#include <fstream>
 
 int nx = 1, ny = 1;
 int nStage = 0;
@@ -25,6 +26,8 @@ NPC4 n4;
 NPC5 n5;
 NPC6 n6;
 NPC7 n7;
+
+static const char *end_file = "ASCII\\Ending.txt";
 
 void gameScreen(void)
 {
@@ -261,6 +264,15 @@ void Move(int dir)
 		}
 		else if (nxt == 8)
 		{
+			gotoxy(5, 35);
+			std::cout << "심상치 않은 기운이 느껴지는 구체다..";
+			getKey();
+			gotoxy(5, 36);
+			std::cout << "이것에서 발산되는 기운 때문에 몬스터가 생기는듯 하다.";
+			getKey();
+			gotoxy(5, 37);
+			std::cout << "내일의 안녕을 위하여!!!";
+			getKey();
 			
 			BossMonster boss;
 			Battle b(boss);
@@ -289,7 +301,29 @@ void Move(int dir)
 			map[nStage][ny][nx] = 0;
 			nStage = 0, nx = 1, ny = 1;
 			map[nStage][ny][nx] = 9;
-			clrscr();
+
+			char buf[BUF_LEN];
+
+			std::ifstream ep(end_file, std::ios::in | std::ios::binary);
+			if (!ep.is_open())
+			{
+				std::cerr << "파일 오픈 실패." << std::endl << "ASCII 폴더와 텍스트 파일을 확인해 주십시오." << std::endl;
+				exit(1);
+			}
+
+			bigConsoleSize();
+			std::memset(buf, 0, BUF_LEN);
+			while (!ep.eof())
+			{
+				ep.read((char*)buf, BUF_LEN - 1);
+				buf[BUF_LEN - 1] = 0;
+				std::cout << buf;
+				std::memset(buf, 0, BUF_LEN);
+			}
+			ep.close();
+			std::cin.get();
+
+			setConsoleSize();
 			mapDraw(nStage);
 		}
 		else

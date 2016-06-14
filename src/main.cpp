@@ -14,6 +14,7 @@
 #include "skill.h"
 #include <fstream>
 #include "fileIO.h"
+#include <cstdlib>
 
 using namespace std;
 
@@ -45,6 +46,8 @@ void initItem()
 	itList[6] = new APPotion();
 }
 
+static const char *open_file = "ASCII\\opening.txt";
+
 int main()
 {
 	initSkill();
@@ -55,10 +58,10 @@ int main()
 
 	if (fi.is_open())
 	{
-		gotoxy(10, 15); cout << "┌────────────────┐";
-		gotoxy(10, 16); cout << "│  세이브파일이 존재합니다.      │";
-		gotoxy(10, 17); cout << "│  파일을 불러오시겠습니까?(Y/N) │";
-		gotoxy(10, 18); cout << "└────────────────┘";
+		gotoxy(10, 5); cout << "┌────────────────┐";
+		gotoxy(10, 6); cout << "│  세이브파일이 존재합니다.      │";
+		gotoxy(10, 7); cout << "│  파일을 불러오시겠습니까?(Y/N) │";
+		gotoxy(10, 8); cout << "└────────────────┘";
 		
 		int ch;
 		while (true)
@@ -71,7 +74,7 @@ int main()
 			}
 			else if (ch == 'n' || ch == 'N')
 			{
-				gotoxy(10, 20); cout << "이름을 입력하세요 : ";
+				gotoxy(10, 10); cout << "이름을 입력하세요 : ";
 				char buf[BUF_LEN];
 				cin.getline(buf, BUF_LEN);
 				p = Player(buf);
@@ -86,6 +89,27 @@ int main()
 		cin.getline(buf, BUF_LEN);
 		p = Player(buf);
 	}
+
+	char buf[BUF_LEN];
+
+	std::ifstream op(open_file, ios::in | ios::binary);
+	if (!op.is_open())
+	{
+		std::cerr << "파일 오픈 실패." << endl << "ASCII 폴더와 텍스트 파일을 확인해 주십시오." << endl;
+		exit(1);
+	}
+
+	bigConsoleSize();
+	std::memset(buf, 0, BUF_LEN);
+	while (!op.eof())
+	{
+		op.read((char*)buf, BUF_LEN - 1);
+		buf[BUF_LEN - 1] = 0;
+		cout << buf;
+		std::memset(buf, 0, BUF_LEN);
+	}
+	op.close();
+	getKey();
 
 	gameScreen();
 

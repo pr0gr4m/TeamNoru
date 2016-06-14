@@ -11,10 +11,12 @@
 #include <sstream>
 #include <stdarg.h>
 #include <conio.h>
+#include <fstream>
 using namespace std;
 
 extern Skill * skList[10];
 extern ITEM * itList[7];
+static const char *over_file = "ASCII\\gameover.txt";
 
 void Battle::_gotoxy()
 {
@@ -399,6 +401,25 @@ int Battle::BattleMenu() {
 }
 
 void Battle::GAMEOVER() {
+	char buf[BUF_LEN];
+	std::ifstream op(over_file, ios::in | ios::binary);
+	if (!op.is_open())
+	{
+		std::cerr << "파일 오픈 실패." << endl << "ASCII 폴더와 텍스트 파일을 확인해 주십시오." << endl;
+		exit(1);
+	}
+
+	bigConsoleSize();
+	std::memset(buf, 0, BUF_LEN);
+	while (!op.eof())
+	{
+		op.read((char*)buf, BUF_LEN - 1);
+		buf[BUF_LEN - 1] = 0;
+		cout << buf;
+		std::memset(buf, 0, BUF_LEN);
+	}
+	op.close();
+	getKey();
 	exit(100);
 }
 

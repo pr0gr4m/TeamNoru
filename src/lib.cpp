@@ -58,6 +58,12 @@ void setConsoleSize(void)
 	system("cls");
 }
 
+void bigConsoleSize(void)
+{
+	system("mode con: cols=130 lines=60");
+	system("cls");
+}
+
 void clrscr(void)
 {
 	system("cls");
