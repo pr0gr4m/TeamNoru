@@ -75,4 +75,12 @@ public:
 	void Dialogue();
 };
 
+extern NPC1 n1;
+extern NPC2 n2;
+extern NPC3 n3;
+extern NPC4 n4;
+extern NPC5 n5;
+extern NPC6 n6;
+extern NPC7 n7;
+
 #endif

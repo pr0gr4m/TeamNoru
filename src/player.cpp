@@ -42,6 +42,39 @@ void Player::initializig(){
 	sp = 0;
 	weapon = NULL;
 	armor = NULL;
+	weapon_num = -1;
+	armor_num = -1;
+	for (int i = 0; i < SKILL_NUM; i++)
+		sk_list[i] = 0;
+	for (int i = 0; i < ITEM_NUM; i++)
+		item_list[i] = 0;
+}
+
+Player& Player::operator=(const Player& player)
+{
+	if (this == &player)
+		return *this;
+	strcpy(name, player.name);
+	str = player.str;
+	luck = player.luck;
+	dex = player.dex;
+	health = player.health;
+	Lv = player.health;
+	exp = player.exp;
+	sp = player.sp;
+	weapon = player.weapon;
+	armor = player.armor;
+	weapon_num = player.weapon_num;
+	armor_num = player.armor_num;
+	for (int i = 0; i < SKILL_NUM; i++)
+		sk_list[i] = player.sk_list[i];
+	for (int i = 0; i < ITEM_NUM; i++)
+		item_list[i] = player.item_list[i];
+	Sethp();
+	Setap();
+	nHp = HP;
+	nAP = AP;
+	return *this;
 }
 
 void Player::Setstr(int nstr){
@@ -553,6 +586,7 @@ void Player::item_mount(){
 						else
 						{
 							weapon = (Weapon*)itList[yp];
+							weapon_num = yp;
 							gotoxy(90, 15); cout << "                                           ";
 							gotoxy(90, 16); cout << "                                           ";
 							gotoxy(90, 17); cout << "                                           ";
@@ -589,6 +623,7 @@ void Player::item_mount(){
 						else
 						{
 							armor = (Armor *)itList[yp];
+							armor_num = yp;
 							gotoxy(90, 15); cout << "                                           ";
 							gotoxy(90, 16); cout << "                                           ";
 							gotoxy(90, 17); cout << "                                           ";
@@ -613,6 +648,17 @@ void Player::item_mount(){
 	}
 	//여기에 메뉴로 돌아가는걸 넣어야 합니다.
 }
+
+void Player::setWeapon()
+{
+	weapon = (Weapon*)itList[weapon_num];
+}
+
+void Player::setArmor()
+{
+	armor = (Armor *)itList[armor_num];
+}
+
 void Player::equipped()
 {
 	int x=92, y=3;

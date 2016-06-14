@@ -1,6 +1,7 @@
 #include "lib.h"
 #include "menu.h"
 #include "player.h"
+#include "fileIO.h"
 #include <iostream>
 
 using namespace std;
@@ -33,6 +34,51 @@ void printMenu()
 	gotoxy(x, y + 22);	cout << "│                                        │";
 	gotoxy(x, y + 23);	cout << "│                                        │";
 	gotoxy(x, y + 24);	cout << "└────────────────────┘";
+}
+
+bool askSave()
+{
+	gotoxy(90, 15); cout << "┌────────────────┐";
+	gotoxy(90, 16); cout << "│  세이브를 하시겠습니까?  (Y/N) │";
+	gotoxy(90, 17); cout << "└────────────────┘";
+
+	int ch = getKey();
+
+	if (ch == 'y' || ch == 'Y')
+		return true;
+	else
+		return false;
+}
+
+bool askExit()
+{
+	gotoxy(90, 15); cout << "┌────────────────┐";
+	gotoxy(90, 16); cout << "│  게임을 종료하겠습니까?  (Y/N) │";
+	gotoxy(90, 17); cout << "└────────────────┘";
+
+	int ch = getKey();
+
+	if (ch == 'y' || ch == 'Y')
+		return true;
+	else
+		return false;
+}
+
+void printSave(bool isSuccess)
+{
+	if (isSuccess)
+	{
+		gotoxy(90, 15); cout << "┌────────────────┐";
+		gotoxy(90, 16); cout << "│   정상적으로 저장되었습니다    │";
+		gotoxy(90, 17); cout << "└────────────────┘";
+	}
+	else
+	{
+		gotoxy(90, 15); cout << "┌────────────────┐";
+		gotoxy(90, 16); cout << "│      저장에 실패하였습니다.    │";
+		gotoxy(90, 17); cout << "└────────────────┘";
+	}
+	getKey();
 }
 
 void eraseMenu()
@@ -109,10 +155,14 @@ void chooseMenu()
 			// 보유 스킬 보여줌
 			break;
 		case SAVE:
+			if (askSave())
+				printSave(SaveGame());
 			// 세이브
 			break;
 		case EXIT:
-			// 끝내기
+			if (askExit())
+				exit(0);
+			// 끝내기 (프로세스 종료시 자동으로 메모리 해제됨)
 			break;
 		}
 		ClearReadBuff();

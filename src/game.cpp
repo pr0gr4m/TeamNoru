@@ -9,9 +9,9 @@
 #include "Battle.h"
 #include "player.h"
 
-static int nx = 1, ny = 1;
-static int nStage = 0;
-Player p("player");
+int nx = 1, ny = 1;
+int nStage = 0;
+Player p;
 NPC1 n1;
 NPC2 n2;
 NPC3 n3;

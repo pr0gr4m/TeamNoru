@@ -18,7 +18,9 @@ private:
 	int exp;//필요exp
 	int sp;//스테이터스 포인트
 	Weapon *weapon;
+	int weapon_num;
 	Armor *armor;
+	int armor_num;
 	enum { NAME_LEN = 20, BUF_SIZE = 256 };
 	void initializig();
 public:
@@ -44,6 +46,10 @@ public:
 	int HealAP(int ap);//회복할 ap계산
 	int getMaxHp() const { return HP; }
 	int getMaxAp() const { return AP; }
+	int getWeaponNum() const { return weapon_num; }
+	void setWeapon();
+	int getArmorNum() const { return armor_num; }
+	void setArmor();
 	void Getexp(int pexp);//exp계산
 	char name[NAME_LEN];
 	int sk_list[SKILL_NUM];
@@ -52,6 +58,7 @@ public:
 	void item_mount();
 	void equipped();
 	void view_skills();
+	Player& operator=(const Player& player);
 };
 
 extern Player p;

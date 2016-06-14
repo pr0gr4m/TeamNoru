@@ -32,6 +32,7 @@ void Battle::BattleSystem() {
 	BAT_START:
 		int battleget = 0;
 		clrscr();
+		ClearReadBuff();
 		battleget = BattleMenu();
 		while (1) {
 			bool isCheck = false;
@@ -147,7 +148,7 @@ bool Battle::ShowInventory() {
 					_gotoxy();
 					cout << p.name << "은(는) " << item_name[inp + 3] << "을(를) 사용했다!";
 					getKey();
-					p.item_list[inp + 3]--;
+					(p.item_list[inp + 3])--;
 					return true;
 				}
 				else {
