@@ -44,6 +44,27 @@ void NPC1::Dialogue()
 			gotoxy(5, 35 + i);
 			cout << sp;
 		}
+
+		if (!RandInt(50))
+		{	// 1/50 확률로
+			gotoxy(5, 35);
+			cout << "잠깐만 기다려. 내가 줄 것이 있어.";
+			getKey();
+			gotoxy(5, 36);
+			cout << "도박 스킬이야. 한번 마음껏 써봐";
+			getKey();
+			gotoxy(5, 35);
+			cout << sp;
+			gotoxy(5, 36);
+			cout << sp;
+
+			p.sk_list[9] = 1;
+			gotoxy(5, 35);
+			cout << "도박 스킬을 얻었다!";
+			getKey();
+			gotoxy(5, 35);
+			cout << sp;
+		}
 	}
 }
 
@@ -168,6 +189,26 @@ void NPC4::Dialogue()
 		getKey();
 		gotoxy(5, 35);
 		cout << sp;
+
+		if (!RandInt(10))
+		{
+			gotoxy(5, 35);
+			cout << "근데 잠시 기다려보게. 내가 좋은걸 하나 알려주지";
+			getKey();
+			gotoxy(5, 36);
+			cout << "바로 몰아치기 스킬이네. 잘 사용 하게나.";
+			getKey();
+			gotoxy(5, 35);
+			cout << sp;
+			gotoxy(5, 36);
+			cout << sp;
+			p.sk_list[4] = 1;
+			gotoxy(5, 35);
+			cout << "몰아치기Lv2 스킬을 습득했다!";
+			getKey();
+			gotoxy(5, 35);
+			cout << sp;
+		}
 	}
 }
 
@@ -298,8 +339,8 @@ NPC7::NPC7()
 {
 	strcpy(str[0], "이부근에 괴물을 물리치러온 모험가는 자네가 오랜만이군...");
 	strcpy(str[1], "괴물을 쓰러뜨리고 싶다고? 좋아 내가 길을 알려주지...");
-	strcpy(str[2], "자네가 꼭 그녀석을 쓰러뜨리길...");
-	strcpy(str[3], "행운을 빈다네");
+	strcpy(str[2], "그 괴물과 싸우기 위한 스킬도 하나 알려주겠네");
+	strcpy(str[3], "자네가 꼭 그녀석을 쓰러뜨리길...");
 	strcpy(str[4], "......");
 }
 
@@ -316,4 +357,5 @@ void NPC7::Dialogue()
 		gotoxy(5, 35 + i);
 		cout << sp;
 	}
+	p.sk_list[5] = 1;
 }

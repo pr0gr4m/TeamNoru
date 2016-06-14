@@ -243,6 +243,15 @@ void Move(int dir)
 			p.HealAP(1000);
 			gotoxy(5, 35);
 			std::cout << "                         ";
+			if (!RandInt(20))
+			{
+				p.sk_list[3] = 1;
+				gotoxy(5, 35);
+				std::cout << "몰아치기Lv1 스킬을 습득하였다!";
+				getKey();
+				gotoxy(5, 35);
+				std::cout << "                              ";
+			}
 			return;
 		}
 		else if (nxt == 8)
@@ -314,6 +323,15 @@ void Move(int dir)
 						clrscr();
 						mapDraw(nStage);
 					}
+					if (!RandInt(10))	// 1 / 10 확률로
+					{
+						p.sk_list[0] = 1;
+						gotoxy(5, 35);
+						std::cout << "강타Lv1 스킬을 얻었다!";
+						getKey();
+						gotoxy(5, 35);
+						std::cout << "                      ";
+					}
 				}
 				else if (nStage >= 4 && nStage <= 6)
 				{
@@ -338,6 +356,24 @@ void Move(int dir)
 						Battle b(m);
 						clrscr();
 						mapDraw(nStage);
+					}
+					if (!RandInt(10))	// 1 / 10 확률로
+					{
+						p.sk_list[1] = 1;
+						gotoxy(5, 35);
+						std::cout << "강타Lv2 스킬을 얻었다!";
+						getKey();
+						gotoxy(5, 35);
+						std::cout << "                      ";
+					}
+					else if (!RandInt(20))	// 9/200 확률로
+					{
+						p.sk_list[2] = 1;
+						gotoxy(5, 35);
+						std::cout << "강타Lv3 스킬을 얻었다!";
+						getKey();
+						gotoxy(5, 35);
+						std::cout << "                      ";
 					}
 				}
 			}

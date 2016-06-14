@@ -347,6 +347,13 @@ void Battle::AIBattle(){
 }
 
 bool Battle::Run() {
+	if (!strcmp(monster.name, mon_name[6]))
+	{
+		_gotoxy();
+		cout << "±¸Ã¼·ÎºÎÅÍ´Â µµ¸ÁÄ¥ ¼ö ¾ø´Ù!";
+		getKey();
+		return false;
+	}
 	if (RandInt(3)) {
 		_gotoxy();
 		cout << p.name << "Àº(´Â) ¹«»çÈ÷ µµ¸ÁÃÆ´Ù!";
