@@ -12,7 +12,7 @@ Monster::Monster(int lev, int val, short type)
 	int base = level / 10 + 1;
 	MAXHP = HP = base * 30 + level * 10;
 	AP = base * 15 + level * 5;
-	DMG = type == AGGR ? val : base * 15 + level * 10;
+	DMG = type == AGGR ? val : base * 15 + level * 5;
 	DFS = type == DEFN ? val : base * 5 + level * 3;
 	for (int i = 0; i < SKILL_NUM; i++)
 		sk_list[i] = 0;

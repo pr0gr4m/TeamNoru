@@ -35,6 +35,7 @@ void Battle::BattleSystem() {
 		ClearReadBuff();
 		battleget = BattleMenu();
 		while (1) {
+			ClearReadBuff();
 			bool isCheck = false;
 			int damage = 0;
 			switch (battleget) {
@@ -198,14 +199,25 @@ bool Battle::ShowSkills() {
 		int ypos = 13;
 		for (int i = 0; i < SKILL_NUM; i++)
 		{
-			if (p.sk_list[i])	// 스킬 존재 하면
+			if (p.sk_list[i] && i != 9)	// 스킬 존재 하면
 			{
 				gotoxy(25, ypos++);
 				cout << i + 1 << ". " << skList[i]->name << "  Lv." << skList[i]->Level() << "    AP : " << skList[i]->Cost();
 			}
+			else if (p.sk_list[i] && i == 9)
+			{
+				gotoxy(25, ypos++);
+				cout << "G. " << skList[i]->name << "  Lv." << skList[i]->Level() << "    AP : " << skList[i]->Cost();
+			}
 		}
 
-		int input = getKey() - '0';
+		int input = getKey();
+		if (input == 'g' || input == 'G')
+		{
+			input = 10;
+		}
+		else
+			input -= '0';
 		if (!input) {
 			return false;
 		}
@@ -351,6 +363,7 @@ bool Battle::Run() {
 }
 
 int Battle::BattleMenu() {
+	ClearReadBuff();
 	monster.printASCII();
 	gotoxy(0, 42);
 	cout << "┌────────────────────────────────────────────────────────────┐" << endl;

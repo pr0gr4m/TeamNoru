@@ -225,8 +225,8 @@ void Move(int dir)
 		else if (nxt == 6)
 		{
 			// 몬스터 만남
-			LowMonster du(1, 30, DEFN);
-			Battle b(du);
+			HighMonster m(20, 30, AGGR);
+			Battle b(m);
 			clrscr();
 			map[nStage][ny + dy][nx + dx] = 0;
 			mapDraw(nStage);
@@ -288,14 +288,60 @@ void Move(int dir)
 			map[nStage][ny][nx] = 9;
 			gotoxy(nx * 2 + 2, ny);
 			std::cout << "Ｐ";
-			if (nStage != 0 && nStage != 7 && RandInt(100) == 99)
+			if (nStage != 0 && nStage != 7 && !RandInt(30))		// 1/30 확률
 			{
-				LowMonster du(1, 30, DEFN);
-				Battle b(du);
-				clrscr();
-				mapDraw(nStage);
-				// 10분의 1 확률로 전투
+				if (nStage >= 1 && nStage <= 3)
+				{
+					int rand_mon = RandInt(3);
+					if (rand_mon == 1)
+					{
+						LowMonster m(nStage * (RandInt(3) + 1), nStage * 10, AGGR);
+						Battle b(m);
+						clrscr();
+						mapDraw(nStage);
+					}
+					else if (rand_mon == 2)
+					{
+						LowMonster m(nStage * (RandInt(3) + 1), nStage * 10, DEFN);
+						Battle b(m);
+						clrscr();
+						mapDraw(nStage);
+					}
+					else
+					{
+						LowMonster m(nStage * (RandInt(3) + 1));
+						Battle b(m);
+						clrscr();
+						mapDraw(nStage);
+					}
+				}
+				else if (nStage >= 4 && nStage <= 6)
+				{
+					int rand_mon = RandInt(3);
+					if (rand_mon == 1)
+					{
+						HighMonster m(nStage * (RandInt(3) + 1), nStage * 20, AGGR);
+						Battle b(m);
+						clrscr();
+						mapDraw(nStage);
+					}
+					else if (rand_mon == 2)
+					{
+						HighMonster m(nStage * (RandInt(3) + 1), nStage * 20, DEFN);
+						Battle b(m);
+						clrscr();
+						mapDraw(nStage);
+					}
+					else
+					{
+						HighMonster m(nStage * (RandInt(3) + 1));
+						Battle b(m);
+						clrscr();
+						mapDraw(nStage);
+					}
+				}
 			}
+			return;
 		}
 	}
 }
